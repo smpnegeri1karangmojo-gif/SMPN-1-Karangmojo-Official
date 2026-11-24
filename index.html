@@ -420,7 +420,7 @@
         </div>
 
         <!-- 3.1.1 KSP -->
-        <div id="isi-pane-ksp" class="isi-pane bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-4">
+        <div id="isi-pane-ksp" class="isi-pane bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-5">
           <div class="flex flex-wrap items-center justify-between gap-2">
             <div>
               <h3 class="text-lg font-extrabold text-slate-900">Kurikulum Satuan Pendidikan (KSP)</h3>
@@ -431,6 +431,38 @@
           <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80">
             <p id="out-snp-ksp" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
           </div>
+
+          <!-- Admin-Only Upload PDF KSP -->
+          <div class="admin-upload-card hidden bg-amber-50/70 rounded-2xl p-5 border border-amber-200 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <span class="px-2 py-0.5 rounded bg-amber-500 text-white text-[10px] font-bold uppercase">Khusus Admin</span>
+                <h4 class="text-sm sm:text-base font-extrabold text-slate-900 mt-1">Upload Dokumen PDF &amp; Deskripsi Kurikulum Satuan Pendidikan (KSP)</h4>
+                <p class="text-xs text-slate-600">Isi deskripsi KSP lalu pilih file PDF dari perangkat atau masukkan tautan pratinjau Google Drive.</p>
+              </div>
+              <button type="button" id="btnRemoveKspPdf" onclick="removeKspPdf()" class="hidden px-3 py-1.5 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs font-bold hover:bg-rose-100">Hapus PDF</button>
+            </div>
+            <form onsubmit="submitKspPdf(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-bold text-slate-700 mb-1">Kolom Deskripsi Kurikulum Satuan Pendidikan (KSP)</label>
+                <textarea id="inpKspDeskripsi" rows="4" placeholder="Tuliskan deskripsi, ringkasan struktur kurikulum, atau catatan tahun pelajaran KSP SMP Negeri 1 Karangmojo..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-xs sm:text-sm leading-relaxed focus:outline-none focus:border-brand-700"></textarea>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Pilih File PDF KSP</label>
+                <input type="file" id="inpKspPdfFile" accept="application/pdf,.pdf" class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-800 file:font-semibold" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Atau Tautan PDF Google Drive</label>
+                <input type="url" id="inpKspPdfLink" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-xs focus:outline-none focus:border-brand-700" />
+              </div>
+              <div class="sm:col-span-2 flex justify-end">
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">Simpan Deskripsi &amp; PDF KSP</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Tampilan Dokumen PDF KSP di Halaman -->
+          <div id="kspPdfViewerContainer" class="space-y-3 pt-2 border-t border-slate-100"></div>
         </div>
 
         <!-- 3.1.2 Perangkat Pembelajaran Guru -->
@@ -1025,6 +1057,8 @@
       },
       snp: {
         ksp: 'Kurikulum Satuan Pendidikan (KSP) SMP Negeri 1 Karangmojo disusun berdasarkan kerangka Kurikulum Merdeka yang disesuaikan dengan karakteristik peserta didik, potensi daerah Kabupaten Gunungkidul, serta visi dan misi sekolah.\n\nStruktur pembelajaran mencakup kegiatan intrakurikuler, kokurikuler (Projek Penguatan Profil Pelajar Pancasila), serta ekstrakurikuler pengembangan bakat dan minat.',
+        kspPdf: '',
+        kspPdfName: '',
         alokasiWaktu: '• Alokasi waktu 1 jam pelajaran tatap muka = 40 menit.\n• Beban belajar disesuaikan dengan struktur kurikulum kelas VII, VIII, dan IX per minggu.\n• Pelaksanaan pembelajaran terbagi dalam Semester Ganjil dan Semester Genap sesuai kalender pendidikan Dinas Pendidikan Kabupaten Gunungkidul.',
         perangkat: [
           {
@@ -1471,32 +1505,73 @@
       e.target.reset();
       persistPortalState(true);
     }
-    async function submitPendidik(e) {
+
+    function readPdfFileAsDataUrl(file) {
+      return new Promise((resolve) => {
+        if (!file) return resolve('');
+        if (file.size > 3.5 * 1024 * 1024) {
+          showToast(`Ukuran PDF "${file.name}" melebihi 3.5 MB. Gunakan tautan Google Drive agar dapat ditampilkan penuh di semua perangkat.`, 'error');
+          return resolve('');
+        }
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => resolve('');
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function submitKspPdf(e) {
       e.preventDefault();
       if (!adminLoggedIn) return;
-      const [ijazah, serdik, skAwal, skAkhir] = await Promise.all([
-        resolveDocValue('fileGuruIjazah', 'linkGuruIjazah'),
-        resolveDocValue('fileGuruSerdik', 'linkGuruSerdik'),
-        resolveDocValue('fileGuruSkAwal', 'linkGuruSkAwal'),
-        resolveDocValue('fileGuruSkAkhir', 'linkGuruSkAkhir')
-      ]);
-      state.snp.pendidik.push({
-        id: 'gr-' + Date.now(),
-        nama: document.getElementById('inpGuruNama').value.trim(),
-        nip: document.getElementById('inpGuruNip').value.trim(),
-        mapel: document.getElementById('inpGuruMapel').value.trim(),
-        pendidikan: document.getElementById('inpGuruPendidikan').value,
-        sertifikasi: document.getElementById('inpGuruSertifikasi').value,
-        purna: document.getElementById('inpGuruPurna').value.trim() || '-',
-        berkas: { ijazah, serdik, skAwal, skAkhir }
-      });
-      e.target.reset();
+      const deskripsiVal = (document.getElementById('inpKspDeskripsi')?.value || '').trim();
+      const fileInp = document.getElementById('inpKspPdfFile');
+      const linkVal = (document.getElementById('inpKspPdfLink')?.value || '').trim();
+      let pdfSource = state.snp?.kspPdf || '';
+      let pdfName = state.snp?.kspPdfName || 'Dokumen Kurikulum Satuan Pendidikan (KSP).pdf';
+
+      if (fileInp && fileInp.files && fileInp.files[0]) {
+        const file = fileInp.files[0];
+        pdfName = file.name;
+        pdfSource = await readPdfFileAsDataUrl(file);
+        if (!pdfSource) return;
+      } else if (linkVal) {
+        pdfSource = linkVal;
+        pdfName = 'Dokumen Kurikulum Satuan Pendidikan (KSP) — Tautan';
+      } else if (!deskripsiVal && !pdfSource) {
+        showToast('Isi deskripsi KSP, pilih file PDF, atau masukkan tautan Google Drive terlebih dahulu.', 'error');
+        return;
+      }
+
+      if (deskripsiVal) {
+        state.snp.ksp = deskripsiVal;
+      }
+      state.snp.kspPdf = pdfSource;
+      state.snp.kspPdfName = pdfName;
+      if (fileInp) fileInp.value = '';
+      const linkEl = document.getElementById('inpKspPdfLink');
+      if (linkEl) linkEl.value = '';
       persistPortalState(true);
     }
 
-    function deleteBukuPaket(id) {
+    function removeKspPdf() {
       if (!adminLoggedIn) return;
-      state.snp.bukuPaket = state.snp.bukuPaket.filter(item => item.id !== id);
+      state.snp.kspPdf = '';
+      state.snp.kspPdfName = '';
+      persistPortalState(true);
+    }
+
+    function submitBukuPaket(e) {
+      e.preventDefault();
+      if (!adminLoggedIn) return;
+      state.snp.bukuPaket.push({
+        id: 'bk-' + Date.now(),
+        mapel: document.getElementById('inpBukuMapel').value.trim(),
+        kelas: document.getElementById('inpBukuKelas').value.trim(),
+        judul: document.getElementById('inpBukuJudul').value.trim(),
+        penerbit: document.getElementById('inpBukuPenerbit').value.trim(),
+        guru: document.getElementById('inpBukuGuru').value.trim()
+      });
+      e.target.reset();
       persistPortalState(true);
     }
 
@@ -1514,15 +1589,36 @@
       persistPortalState(true);
     }
 
+    async function submitPendidik(e) {
+      e.preventDefault();
+      if (!adminLoggedIn) return;
+      const ijazah = await resolveDocValue('fileGuruIjazah', 'linkGuruIjazah');
+      const serdik = await resolveDocValue('fileGuruSerdik', 'linkGuruSerdik');
+      const skAwal = await resolveDocValue('fileGuruSkAwal', 'linkGuruSkAwal');
+      const skAkhir = await resolveDocValue('fileGuruSkAkhir', 'linkGuruSkAkhir');
+
+      state.snp.pendidik.push({
+        id: 'gr-' + Date.now(),
+        nama: document.getElementById('inpGuruNama').value.trim(),
+        nip: document.getElementById('inpGuruNip').value.trim(),
+        mapel: document.getElementById('inpGuruMapel').value.trim(),
+        pendidikan: document.getElementById('inpGuruPendidikan').value,
+        sertifikasi: document.getElementById('inpGuruSertifikasi').value,
+        purna: document.getElementById('inpGuruPurna').value.trim() || '-',
+        berkas: { ijazah, serdik, skAwal, skAkhir }
+      });
+      e.target.reset();
+      persistPortalState(true);
+    }
+
     async function submitTendik(e) {
       e.preventDefault();
       if (!adminLoggedIn) return;
-      const [ijazah, serdik, skAwal, skAkhir] = await Promise.all([
-        resolveDocValue('fileTendikIjazah', 'linkTendikIjazah'),
-        resolveDocValue('fileTendikSerdik', 'linkTendikSerdik'),
-        resolveDocValue('fileTendikSkAwal', 'linkTendikSkAwal'),
-        resolveDocValue('fileTendikSkAkhir', 'linkTendikSkAkhir')
-      ]);
+      const ijazah = await resolveDocValue('fileTendikIjazah', 'linkTendikIjazah');
+      const serdik = await resolveDocValue('fileTendikSerdik', 'linkTendikSerdik');
+      const skAwal = await resolveDocValue('fileTendikSkAwal', 'linkTendikSkAwal');
+      const skAkhir = await resolveDocValue('fileTendikSkAkhir', 'linkTendikSkAkhir');
+
       state.snp.tendik.push({
         id: 'td-' + Date.now(),
         nama: document.getElementById('inpTendikNama').value.trim(),
@@ -1533,39 +1629,6 @@
         berkas: { ijazah, serdik, skAwal, skAkhir }
       });
       e.target.reset();
-      persistPortalState(true);
-    }
-
-    function deletePendidik(id) {
-      if (!adminLoggedIn) return;
-      state.snp.pendidik = state.snp.pendidik.filter(item => item.id !== id);
-      persistPortalState(true);
-    }
-
-    function submitTendik(e) {
-      e.preventDefault();
-      if (!adminLoggedIn) return;
-      state.snp.tendik.push({
-        id: 'td-' + Date.now(),
-        nama: document.getElementById('inpTendikNama').value.trim(),
-        nip: document.getElementById('inpTendikNip').value.trim() || '-',
-        jabatan: document.getElementById('inpTendikJabatan').value.trim(),
-        pendidikan: document.getElementById('inpTendikPendidikan').value,
-        purna: document.getElementById('inpTendikPurna').value.trim() || '-',
-        berkas: {
-          ijazah: resolveDocValue('fileTendikIjazah', 'linkTendikIjazah'),
-          serdik: resolveDocValue('fileTendikSerdik', 'linkTendikSerdik'),
-          skAwal: resolveDocValue('fileTendikSkAwal', 'linkTendikSkAwal'),
-          skAkhir: resolveDocValue('fileTendikSkAkhir', 'linkTendikSkAkhir')
-        }
-      });
-      e.target.reset();
-      persistPortalState(true);
-    }
-
-    function deleteTendik(id) {
-      if (!adminLoggedIn) return;
-      state.snp.tendik = state.snp.tendik.filter(item => item.id !== id);
       persistPortalState(true);
     }
 
@@ -1583,20 +1646,45 @@
       persistPortalState(true);
     }
 
+    // ==================== DELETE HANDLERS (ADMIN ONLY) ====================
+    function deletePerangkat(id) {
+      if (!adminLoggedIn) return;
+      state.snp.perangkat = state.snp.perangkat.filter(item => item.id !== id);
+      persistPortalState(true);
+    }
+
+    function deleteBukuPaket(id) {
+      if (!adminLoggedIn) return;
+      state.snp.bukuPaket = state.snp.bukuPaket.filter(item => item.id !== id);
+      persistPortalState(true);
+    }
+
+    function deletePendidik(id) {
+      if (!adminLoggedIn) return;
+      state.snp.pendidik = state.snp.pendidik.filter(item => item.id !== id);
+      persistPortalState(true);
+    }
+
+    function deleteTendik(id) {
+      if (!adminLoggedIn) return;
+      state.snp.tendik = state.snp.tendik.filter(item => item.id !== id);
+      persistPortalState(true);
+    }
+
     function deleteSerbaSerbi(id) {
       if (!adminLoggedIn) return;
       state.serbaSerbi.catatan = state.serbaSerbi.catatan.filter(item => item.id !== id);
       persistPortalState(true);
     }
 
-    // ==================== RENDER FUNCTIONS ====================
+    // ==================== RENDERING HELPERS ====================
     function escapeHtml(str) {
       return String(str ?? '')
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+        .replace(/'/g, '&#39;');
     }
 
     function setTextSafe(id, value) {
@@ -1604,50 +1692,50 @@
       if (el) el.textContent = value ?? '';
     }
 
-    const docPreviewRegistry = {};
-
-    function openDocPreview(regKey, title) {
-      const val = docPreviewRegistry[regKey];
-      if (!val) return;
-      const titleEl = document.getElementById('docViewerTitle');
-      const bodyEl = document.getElementById('docViewerBody');
-      if (titleEl) titleEl.textContent = title || 'Pratinjau Berkas';
-
-      if (val.startsWith('data:image/')) {
-        bodyEl.innerHTML = `<img src="${val}" alt="${escapeHtml(title)}" class="max-h-[60vh] w-auto rounded-xl shadow-sm object-contain" />`;
-      } else if (val.startsWith('data:application/pdf')) {
-        bodyEl.innerHTML = `<iframe src="${val}" class="w-full h-[60vh] rounded-xl border-0"></iframe>`;
-      } else if (/^https?:\/\//i.test(val)) {
-        bodyEl.innerHTML = `
-          <div class="py-8 space-y-3">
-            <p class="text-sm text-slate-700 font-medium">Berkas tersimpan pada tautan eksternal / Google Drive:</p>
-            <a href="${escapeHtml(val)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">
-              Buka Foto / Dokumen di Tab Baru
-            </a>
-          </div>
-        `;
-      } else {
-        bodyEl.innerHTML = `
-          <div class="py-8 space-y-2 max-w-md">
-            <p class="text-sm font-bold text-slate-800">${escapeHtml(val)}</p>
-            <p class="text-xs text-slate-500">Berkas ini tercatat sebagai lampiran contoh/nama file. Untuk menampilkan foto langsung kepada pengunjung, Admin dapat mengunggah ulang file foto (maks. 1.5 MB) atau menempelkan tautan Google Drive pada form edit/input.</p>
-          </div>
-        `;
+    function normalizeGoogleDriveEmbedUrl(url) {
+      if (!url) return '';
+      const fileMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (fileMatch && fileMatch[1]) {
+        return `https://drive.google.com/file/d/${fileMatch[1]}/preview`;
       }
-      document.getElementById('modalDocViewer')?.classList.remove('hidden');
+      const openMatch = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      if (openMatch && openMatch[1]) {
+        return `https://drive.google.com/file/d/${openMatch[1]}/preview`;
+      }
+      return url;
     }
 
     function renderDocBadge(label, val, ownerName = '') {
       if (!val) {
-        return `<span class="inline-flex items-center px-2 py-0.5 rounded bg-slate-100 text-slate-400 text-[11px]">${escapeHtml(label)}: Belum</span>`;
+        return `<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-400 text-[11px]">${escapeHtml(label)}: Belum</span>`;
       }
       if (/^https?:\/\//i.test(val)) {
-        return `<a href="${escapeHtml(val)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-semibold text-[11px] underline">Lihat ${escapeHtml(label)}</a>`;
+        return `<a href="${escapeHtml(val)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-brand-50 text-brand-800 hover:bg-brand-100 text-[11px] font-bold transition">Lihat ${escapeHtml(label)} &nearr;</a>`;
       }
-      const regKey = 'doc_' + Math.random().toString(36).slice(2, 10);
-      docPreviewRegistry[regKey] = val;
-      const modalTitle = ownerName ? `${label} — ${ownerName}` : label;
-      return `<button type="button" onclick="openDocPreview('${regKey}', '${escapeHtml(modalTitle)}')" class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-semibold text-[11px] underline cursor-pointer">Lihat ${escapeHtml(label)}</button>`;
+      if (val.startsWith('data:')) {
+        const safeTitle = escapeHtml(`${label} — ${ownerName || 'PTK'}`);
+        const safeData = escapeHtml(val);
+        return `<button type="button" data-doc-title="${safeTitle}" data-doc-src="${safeData}" onclick="openDocPreview(this)" class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 hover:bg-emerald-100 text-[11px] font-bold transition">Lihat ${escapeHtml(label)}</button>`;
+      }
+      return `<span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[11px] font-semibold">${escapeHtml(label)}: ${escapeHtml(val)}</span>`;
+    }
+
+    function openDocPreview(btn) {
+      const title = btn.getAttribute('data-doc-title') || 'Pratinjau Berkas';
+      const src = btn.getAttribute('data-doc-src') || '';
+      const titleEl = document.getElementById('docViewerTitle');
+      const bodyEl = document.getElementById('docViewerBody');
+      if (!bodyEl) return;
+      if (titleEl) titleEl.textContent = title;
+
+      if (src.startsWith('data:image/')) {
+        bodyEl.innerHTML = `<img src="${escapeHtml(src)}" alt="${escapeHtml(title)}" class="max-h-[62vh] w-auto rounded-xl shadow-sm object-contain" />`;
+      } else if (src.startsWith('data:application/pdf')) {
+        bodyEl.innerHTML = `<iframe src="${escapeHtml(src)}" title="${escapeHtml(title)}" class="w-full h-[62vh] rounded-xl border-0"></iframe>`;
+      } else {
+        bodyEl.innerHTML = `<a href="${escapeHtml(src)}" download="berkas-kepegawaian" class="px-4 py-2 rounded-xl bg-brand-800 text-white text-xs font-bold">Unduh Berkas</a>`;
+      }
+      document.getElementById('modalDocViewer')?.classList.remove('hidden');
     }
 
     function renderForsakaSub() {
@@ -1659,69 +1747,110 @@
       setTextSafe('forsakaSubPengurus', sub.pengurus);
     }
 
-    function renderProsentaseSection() {
-      const pendidikList = state.snp?.pendidik || [];
-      const tendikList = state.snp?.tendik || [];
-      const totalGuru = pendidikList.length;
-      const totalTendik = tendikList.length;
-
-      // 1. Pendidik S1 vs S2
-      const countS1 = pendidikList.filter(g => g.pendidikan === 'S1').length;
-      const countS2 = pendidikList.filter(g => g.pendidikan === 'S2' || g.pendidikan === 'S3').length;
-      renderBarGroup('chartPendidikEdu', 'tablePendidikEdu', [
-        { label: 'Lulusan S1', count: countS1, total: totalGuru, color: 'bg-brand-700' },
-        { label: 'Lulusan S2 / S3', count: countS2, total: totalGuru, color: 'bg-amber-500' }
-      ], totalGuru);
-
-      // 2. Sertifikasi Pendidik
-      const countSudah = pendidikList.filter(g => g.sertifikasi === 'Sudah').length;
-      const countBelum = pendidikList.filter(g => g.sertifikasi !== 'Sudah').length;
-      renderBarGroup('chartPendidikSert', 'tablePendidikSert', [
-        { label: 'Sudah Sertifikasi', count: countSudah, total: totalGuru, color: 'bg-emerald-600' },
-        { label: 'Belum Sertifikasi', count: countBelum, total: totalGuru, color: 'bg-slate-400' }
-      ], totalGuru);
-
-      // 3. Tendik SMA/SMK, D2, D3, D4, S1
-      const levels = [
-        { key: 'SMA / SMK', color: 'bg-brand-800' },
-        { key: 'D2', color: 'bg-sky-600' },
-        { key: 'D3', color: 'bg-teal-600' },
-        { key: 'D4', color: 'bg-amber-500' },
-        { key: 'S1', color: 'bg-emerald-600' }
-      ];
-      const tendikItems = levels.map(lv => ({
-        label: lv.key,
-        count: tendikList.filter(t => t.pendidikan === lv.key).length,
-        total: totalTendik,
-        color: lv.color
-      }));
-      renderBarGroup('chartTendikEdu', 'tableTendikEdu', tendikItems, totalTendik);
-    }
-
-    function renderBarGroup(chartElId, tableElId, items, total) {
-      const chartEl = document.getElementById(chartElId);
-      const tableEl = document.getElementById(tableElId);
-      if (!chartEl || !tableEl) return;
-
-      chartEl.innerHTML = items.map(item => {
-        const pct = total > 0 ? Math.round((item.count / total) * 1000) / 10 : 0;
+    function renderBarGroup(items, total) {
+      return items.map(it => {
+        const pct = total > 0 ? Math.round((it.count / total) * 1000) / 10 : 0;
         return `
           <div class="space-y-1">
-            <div class="flex justify-between text-xs font-semibold text-slate-700">
-              <span>${escapeHtml(item.label)}</span>
-              <span>${item.count} org (${pct}%)</span>
+            <div class="flex justify-between text-xs font-bold">
+              <span class="text-slate-700">${escapeHtml(it.label)}</span>
+              <span class="text-slate-900">${it.count} (${pct}%)</span>
             </div>
             <div class="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden">
-              <div class="${item.color} h-full rounded-full transition-all duration-300" style="width: ${pct}%"></div>
+              <div class="h-full rounded-full ${it.color}" style="width: ${pct}%"></div>
             </div>
           </div>
         `;
       }).join('');
+    }
 
-      tableEl.innerHTML = `
-        <div class="flex justify-between font-bold text-slate-800">
-          <span>Total Terdata</span>
-          <span>${total} Orang (100%)</span>
+    function renderProsentaseSection() {
+      const pendidik = state.snp?.pendidik || [];
+      const tendik = state.snp?.tendik || [];
+      const totalGuru = pendidik.length;
+      const totalTendik = tendik.length;
+
+      // 1. Pendidikan Pendidik (S1 / S2)
+      const countS1 = pendidik.filter(g => g.pendidikan === 'S1').length;
+      const countS2 = pendidik.filter(g => g.pendidikan === 'S2' || g.pendidikan === 'S3').length;
+      const eduItems = [
+        { label: 'Lulusan S1', count: countS1, color: 'bg-brand-700' },
+        { label: 'Lulusan S2 / S3', count: countS2, color: 'bg-amber-500' }
+      ];
+      const chartEdu = document.getElementById('chartPendidikEdu');
+      const tableEdu = document.getElementById('tablePendidikEdu');
+      if (chartEdu) chartEdu.innerHTML = renderBarGroup(eduItems, totalGuru);
+      if (tableEdu) tableEdu.innerHTML = `<div class="flex justify-between font-extrabold text-slate-800"><span>Total Pendidik</span><span>${totalGuru} Orang (100%)</span></div>`;
+
+      // 2. Sertifikasi Pendidik
+      const countSudah = pendidik.filter(g => g.sertifikasi === 'Sudah').length;
+      const countBelum = pendidik.filter(g => g.sertifikasi !== 'Sudah').length;
+      const sertItems = [
+        { label: 'Sudah Sertifikasi', count: countSudah, color: 'bg-emerald-600' },
+        { label: 'Belum Sertifikasi', count: countBelum, color: 'bg-rose-500' }
+      ];
+      const chartSert = document.getElementById('chartPendidikSert');
+      const tableSert = document.getElementById('tablePendidikSert');
+      if (chartSert) chartSert.innerHTML = renderBarGroup(sertItems, totalGuru);
+      if (tableSert) tableSert.innerHTML = `<div class="flex justify-between font-extrabold text-slate-800"><span>Total Pendidik</span><span>${totalGuru} Orang (100%)</span></div>`;
+
+      // 3. Pendidikan Tendik (SMA/SMK, D2, D3, D4, S1)
+      const levels = [
+        { key: 'SMA / SMK', label: 'Lulusan SMA / SMK', color: 'bg-brand-700' },
+        { key: 'D2', label: 'Lulusan D2', color: 'bg-sky-600' },
+        { key: 'D3', label: 'Lulusan D3', color: 'bg-teal-600' },
+        { key: 'D4', label: 'Lulusan D4', color: 'bg-amber-500' },
+        { key: 'S1', label: 'Lulusan S1', color: 'bg-emerald-600' }
+      ];
+      const tendikItems = levels.map(lv => ({
+        label: lv.label,
+        count: tendik.filter(t => t.pendidikan === lv.key).length,
+        color: lv.color
+      }));
+      const chartTendik = document.getElementById('chartTendikEdu');
+      const tableTendik = document.getElementById('tableTendikEdu');
+      if (chartTendik) chartTendik.innerHTML = renderBarGroup(tendikItems, totalTendik);
+      if (tableTendik) tableTendik.innerHTML = `<div class="flex justify-between font-extrabold text-slate-800"><span>Total Tenaga Kependidikan</span><span>${totalTendik} Orang (100%)</span></div>`;
+    }
+
+    function renderKspPdfViewer() {
+      const container = document.getElementById('kspPdfViewerContainer');
+      const btnRemove = document.getElementById('btnRemoveKspPdf');
+      const deskripsiInp = document.getElementById('inpKspDeskripsi');
+      if (deskripsiInp && document.activeElement !== deskripsiInp) {
+        deskripsiInp.value = state.snp?.ksp || '';
+      }
+      if (!container) return;
+
+      const pdfSrc = state.snp?.kspPdf || '';
+      const pdfName = state.snp?.kspPdfName || 'Dokumen Kurikulum Satuan Pendidikan (KSP).pdf';
+
+      if (btnRemove) {
+        btnRemove.classList.toggle('hidden', !pdfSrc);
+      }
+
+      if (!pdfSrc) {
+        container.innerHTML = `
+          <div class="rounded-2xl border border-dashed border-slate-300 bg-slate-50/70 p-6 text-center text-xs text-slate-500">
+            Dokumen PDF Kurikulum Satuan Pendidikan (KSP) belum diunggah oleh Admin.
+          </div>
+        `;
+        return;
+      }
+
+      const embedSrc = /^https?:\/\//i.test(pdfSrc) ? normalizeGoogleDriveEmbedUrl(pdfSrc) : pdfSrc;
+      container.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 text-xs font-extrabold">PDF</span>
+            <span class="text-xs sm:text-sm font-bold text-slate-800">${escapeHtml(pdfName)}</span>
+          </div>
+          <a href="${escapeHtml(pdfSrc)}" download="${escapeHtml(pdfName)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">
+            Buka / Unduh PDF
+          </a>
+        </div>
+        <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 shadow-inner">
+          <iframe src="${escapeHtml(embedSrc)}" title="${escapeHtml(pdfName)}" class="w-full h-[540px] sm:h-[680px] border-0"></iframe>
         </div>
       `;
     }
@@ -1735,6 +1864,7 @@
       setTextSafe('out-profil-budaya', state.profil?.budaya);
       setTextSafe('out-forsaka-pengantar', state.forsaka?.pengantar);
       setTextSafe('out-snp-ksp', state.snp?.ksp);
+      renderKspPdfViewer();
       setTextSafe('out-snp-alokasiWaktu', state.snp?.alokasiWaktu);
       setTextSafe('out-serbaSerbi-pengantar', state.serbaSerbi?.pengantar);
       setTextSafe('out-tentangKami-umum', state.tentangKami?.umum);
