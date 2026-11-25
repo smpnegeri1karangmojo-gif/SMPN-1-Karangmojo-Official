@@ -218,11 +218,11 @@
               <div class="space-y-2 max-w-4xl">
                 <div class="flex flex-wrap items-center gap-2">
                   <span class="inline-block px-2.5 py-1 rounded-lg bg-brand-800 text-white text-xs font-extrabold">BAB 03</span>
-                  <span class="text-xs font-semibold text-brand-700">3.1 Standar Isi &bull; 3.2 Standar Proses &bull; 3.3 Pendidik &amp; Tenaga Kependidikan</span>
+                  <span class="text-xs font-semibold text-brand-700">8 Komponen Standar Nasional Pendidikan (3.1 – 3.8)</span>
                 </div>
                 <h3 class="text-lg sm:text-xl font-extrabold text-slate-900 group-hover:text-brand-800 transition">SNP (Standar Nasional Pendidikan)</h3>
                 <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Dokumen Kurikulum Satuan Pendidikan, Perangkat Pembelajaran Guru, Alokasi Waktu &amp; Beban Belajar, Buku Paket Mapel, Data Kepala Sekolah, Data Pendidik, Data Tenaga Kependidikan, serta Dashboard Data Prosentase PTK.
+                  Mencakup Standar Isi, Standar Proses, Standar Kelulusan/SKL, Standar Tendik, Standar Sarana Prasarana, Standar Pengelolaan, Standar Pembiayaan, dan Standar Penilaian SMP Negeri 1 Karangmojo.
                 </p>
               </div>
               <div class="w-11 h-11 rounded-2xl bg-brand-800 text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
@@ -392,22 +392,42 @@
         <div>
           <span class="inline-block px-3 py-1 rounded-full bg-brand-50 text-brand-800 text-xs font-bold mb-2">BAB 03</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">SNP (Standar Nasional Pendidikan)</h2>
-          <p class="text-sm text-slate-600 mt-1">Dokumentasi komponen Standar Isi, Standar Proses, serta Pendidik dan Tenaga Kependidikan SMP Negeri 1 Karangmojo.</p>
+          <p class="text-sm text-slate-600 mt-1">Dokumentasi 8 Komponen Standar Nasional Pendidikan SMP Negeri 1 Karangmojo.</p>
         </div>
 
-        <!-- 3 Main SNP Sub-Chapters (3.1, 3.2, 3.3) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
-          <button type="button" data-snp="isi" onclick="setSnpMainTab('isi')" class="snp-main-btn subtab-active text-left p-4 rounded-2xl border border-slate-200 transition">
+        <!-- 8 Main SNP Sub-Chapters (3.1 - 3.8) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+          <button type="button" data-snp="isi" onclick="setSnpMainTab('isi')" class="snp-main-btn subtab-active text-left p-3.5 rounded-2xl border border-slate-200 transition">
             <span class="block text-[11px] font-extrabold uppercase opacity-80">Subbab 3.1</span>
-            <span class="block text-sm font-bold mt-0.5">Komponen Standar Isi</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Isi</span>
           </button>
-          <button type="button" data-snp="proses" onclick="setSnpMainTab('proses')" class="snp-main-btn text-left p-4 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
+          <button type="button" data-snp="proses" onclick="setSnpMainTab('proses')" class="snp-main-btn text-left p-3.5 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
             <span class="block text-[11px] font-extrabold uppercase text-brand-700">Subbab 3.2</span>
-            <span class="block text-sm font-bold mt-0.5">Komponen Standar Proses</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Proses</span>
           </button>
-          <button type="button" data-snp="ptk" onclick="setSnpMainTab('ptk')" class="snp-main-btn text-left p-4 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
+          <button type="button" data-snp="skl" onclick="setSnpMainTab('skl')" class="snp-main-btn text-left p-3.5 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
             <span class="block text-[11px] font-extrabold uppercase text-brand-700">Subbab 3.3</span>
-            <span class="block text-sm font-bold mt-0.5">Komponen Pendidik &amp; Tendik</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Kelulusan/SKL</span>
+          </button>
+          <button type="button" data-snp="ptk" onclick="setSnpMainTab('ptk')" class="snp-main-btn text-left p-3.5 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
+            <span class="block text-[11px] font-extrabold uppercase text-brand-700">Subbab 3.4</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Tendik</span>
+          </button>
+          <button type="button" data-snp="sarpras" onclick="setSnpMainTab('sarpras')" class="snp-main-btn text-left p-3.5 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
+            <span class="block text-[11px] font-extrabold uppercase text-brand-700">Subbab 3.5</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Sarana Prasarana</span>
+          </button>
+          <button type="button" data-snp="pengelolaan" onclick="setSnpMainTab('pengelolaan')" class="snp-main-btn text-left p-3.5 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
+            <span class="block text-[11px] font-extrabold uppercase text-brand-700">Subbab 3.6</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Pengelolaan</span>
+          </button>
+          <button type="button" data-snp="pembiayaan" onclick="setSnpMainTab('pembiayaan')" class="snp-main-btn text-left p-3.5 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
+            <span class="block text-[11px] font-extrabold uppercase text-brand-700">Subbab 3.7</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Pembiayaan</span>
+          </button>
+          <button type="button" data-snp="penilaian" onclick="setSnpMainTab('penilaian')" class="snp-main-btn text-left p-3.5 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
+            <span class="block text-[11px] font-extrabold uppercase text-brand-700">Subbab 3.8</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Penilaian</span>
           </button>
         </div>
       </div>
@@ -502,81 +522,11 @@
                 <thead class="bg-slate-100 text-slate-700 font-bold">
                   <tr>
                     <th class="px-4 py-3 text-left">No</th>
-                    <th class="px-4 py-3 text-left">Nama Guru</th>
-                    <th class="px-4 py-3 text-left">Mata Pelajaran</th>
-                    <th class="px-4 py-3 text-left">Kelas / Smt</th>
-                    <th class="px-4 py-3 text-left">Jenis Perangkat</th>
-                    <th class="px-4 py-3 text-left">Berkas / Tautan</th>
-                    <th class="admin-col-header hidden px-4 py-3 text-center">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody id="tbodyPerangkat" class="divide-y divide-slate-100 bg-white"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ===== SUBBAB 3.2: KOMPONEN STANDAR PROSES ===== -->
-      <div id="snp-pane-proses" class="snp-pane hidden space-y-6">
-        <div class="flex flex-wrap gap-2">
-          <button type="button" data-proses="alokasi" onclick="setProsesTab('alokasi')" class="proses-sub-btn subtab-active px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 transition">3.2.1 Alokasi Waktu &amp; Beban Belajar</button>
-          <button type="button" data-proses="buku" onclick="setProsesTab('buku')" class="proses-sub-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">3.2.2 Buku Paket Setiap Mapel</button>
-        </div>
-
-        <!-- 3.2.1 Alokasi Waktu -->
-        <div id="proses-pane-alokasi" class="proses-pane bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <div>
-              <h3 class="text-lg font-extrabold text-slate-900">Alokasi Waktu dan Beban Belajar</h3>
-              <p class="text-xs text-slate-500">Pengaturan jam tatap muka, kokurikuler, dan beban belajar murid tiap jenjang kelas.</p>
-            </div>
-            <button type="button" onclick="openTextEditor('snp.alokasiWaktu', 'Edit Alokasi Waktu & Beban Belajar')" class="admin-edit-slot hidden px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Uraian</button>
-          </div>
-          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80">
-            <p id="out-snp-alokasiWaktu" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
-          </div>
-        </div>
-
-        <!-- 3.2.2 Buku Paket Mapel -->
-        <div id="proses-pane-buku" class="proses-pane hidden space-y-5">
-          <!-- Admin-Only Upload Card -->
-          <div class="admin-upload-card hidden bg-amber-50/70 rounded-2xl p-6 border border-amber-200 space-y-4">
-            <div>
-              <span class="px-2 py-0.5 rounded bg-amber-500 text-white text-[10px] font-bold uppercase">Khusus Admin</span>
-              <h4 class="text-base font-extrabold text-slate-900 mt-1">Tambah Data Buku Paket Mapel</h4>
-            </div>
-            <form onsubmit="submitBukuPaket(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              <input type="text" id="inpBukuMapel" required placeholder="Mata Pelajaran" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:border-brand-700" />
-              <input type="text" id="inpBukuKelas" required placeholder="Kelas (VII / VIII / IX)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:border-brand-700" />
-              <input type="text" id="inpBukuJudul" required placeholder="Judul Buku Paket" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:border-brand-700" />
-              <input type="text" id="inpBukuPenerbit" required placeholder="Penerbit / Tahun Terbit" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:border-brand-700" />
-              <input type="text" id="inpBukuGuru" required placeholder="Guru Pengampu / Penginput" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:border-brand-700" />
-              <div class="flex justify-end items-center">
-                <button type="submit" class="w-full px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">Simpan Data Buku Paket</button>
-              </div>
-            </form>
-          </div>
-
-          <!-- Table Display -->
-          <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-4">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <h3 class="text-lg font-extrabold text-slate-900">Daftar Buku Paket Setiap Mata Pelajaran</h3>
-                <p class="text-xs text-slate-500">Buku teks utama yang digunakan dalam proses pembelajaran tiap mata pelajaran.</p>
-              </div>
-              <span id="badgeCountBuku" class="px-3 py-1 rounded-full bg-brand-50 text-brand-800 text-xs font-bold">0 Judul Buku</span>
-            </div>
-            <div class="overflow-x-auto rounded-xl border border-slate-200">
-              <table class="min-w-full divide-y divide-slate-200 text-xs sm:text-sm">
-                <thead class="bg-slate-100 text-slate-700 font-bold">
-                  <tr>
-                    <th class="px-4 py-3 text-left">No</th>
                     <th class="px-4 py-3 text-left">Mata Pelajaran</th>
                     <th class="px-4 py-3 text-left">Kelas</th>
                     <th class="px-4 py-3 text-left">Judul Buku Paket</th>
                     <th class="px-4 py-3 text-left">Penerbit / Tahun</th>
-                    <th class="px-4 py-3 text-left">Guru Mapel</th>
+                    <th class="px-4 py-3 text-left">Guru Pengampu</th>
                     <th class="admin-col-header hidden px-4 py-3 text-center">Aksi</th>
                   </tr>
                 </thead>
@@ -587,16 +537,34 @@
         </div>
       </div>
 
-      <!-- ===== SUBBAB 3.3: KOMPONEN PENDIDIK DAN TENAGA KEPENDIDIKAN ===== -->
+      <!-- ===== SUBBAB 3.3: KOMPONEN STANDAR KELULUSAN / SKL ===== -->
+      <div id="snp-pane-skl" class="snp-pane hidden space-y-5">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-extrabold text-brand-700 uppercase">Subbab 3.3</span>
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Komponen Standar Kelulusan / SKL</h3>
+              <p class="text-xs text-slate-500">Kriteria kualifikasi kemampuan lulusan yang mencakup sikap, pengetahuan, dan keterampilan peserta didik.</p>
+            </div>
+            <button type="button" onclick="openTextEditor('snp.skl', 'Edit Komponen Standar Kelulusan / SKL')" class="admin-edit-slot hidden px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Uraian</button>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80">
+            <p id="out-snp-skl" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+          </div>
+        </div>
+        <div id="extra-docs-skl"></div>
+      </div>
+
+      <!-- ===== SUBBAB 3.4: KOMPONEN STANDAR TENDIK ===== -->
       <div id="snp-pane-ptk" class="snp-pane hidden space-y-6">
         <div class="flex flex-wrap gap-2">
-          <button type="button" data-ptk="kepsek" onclick="setPtkTab('kepsek')" class="ptk-sub-btn subtab-active px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 transition">3.3.1 Data Kepala Sekolah</button>
-          <button type="button" data-ptk="pendidik" onclick="setPtkTab('pendidik')" class="ptk-sub-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">3.3.2 Data Pendidik</button>
-          <button type="button" data-ptk="tendik" onclick="setPtkTab('tendik')" class="ptk-sub-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">3.3.3 Data Tenaga Kependidikan</button>
-          <button type="button" data-ptk="prosentase" onclick="setPtkTab('prosentase')" class="ptk-sub-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">3.3.4 Data Prosentase PTK</button>
+          <button type="button" data-ptk="kepsek" onclick="setPtkTab('kepsek')" class="ptk-sub-btn subtab-active px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 transition">3.4.1 Data Kepala Sekolah</button>
+          <button type="button" data-ptk="pendidik" onclick="setPtkTab('pendidik')" class="ptk-sub-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">3.4.2 Data Pendidik</button>
+          <button type="button" data-ptk="tendik" onclick="setPtkTab('tendik')" class="ptk-sub-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">3.4.3 Data Tenaga Kependidikan</button>
+          <button type="button" data-ptk="prosentase" onclick="setPtkTab('prosentase')" class="ptk-sub-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">3.4.4 Data Prosentase PTK</button>
         </div>
 
-        <!-- 3.3.1 Data Kepala Sekolah -->
+        <!-- 3.4.1 Data Kepala Sekolah -->
         <div id="ptk-pane-kepsek" class="ptk-pane space-y-5">
           <!-- Admin-Only Form -->
           <div class="admin-upload-card hidden bg-amber-50/70 rounded-2xl p-6 border border-amber-200 space-y-4">
@@ -624,14 +592,14 @@
           </div>
         </div>
 
-        <!-- 3.3.2 Data Pendidik (dengan upload Ijazah, Serdik, SK PNS/PPPK, SK Terakhir) -->
+        <!-- 3.4.2 Data Pendidik (dengan tautan Google Drive Ijazah, Serdik, SK PNS/PPPK, SK Terakhir) -->
         <div id="ptk-pane-pendidik" class="ptk-pane hidden space-y-5">
           <!-- Admin-Only Form -->
           <div class="admin-upload-card hidden bg-amber-50/70 rounded-2xl p-6 border border-amber-200 space-y-4">
             <div>
               <span class="px-2 py-0.5 rounded bg-amber-500 text-white text-[10px] font-bold uppercase">Khusus Admin</span>
-              <h4 class="text-base font-extrabold text-slate-900 mt-1">Input / Upload Data &amp; Berkas Pendidik (Guru)</h4>
-              <p class="text-xs text-slate-600">Lengkapi biodata guru beserta berkas Ijazah Terakhir, Sertifikat Pendidik, SK PNS/PPPK, dan SK Terakhir PNS/PPPK.</p>
+              <h4 class="text-base font-extrabold text-slate-900 mt-1">Input Data &amp; Tautan Berkas Google Drive Pendidik (Guru)</h4>
+              <p class="text-xs text-slate-600">Unggah berkas ke Google Drive terlebih dahulu (atur akses ke <strong>Siapa saja yang memiliki link dapat melihat</strong>), lalu tempelkan tautan Google Drive masing-masing berkas di bawah ini.</p>
             </div>
             <form onsubmit="submitPendidik(event)" class="space-y-4">
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -650,27 +618,23 @@
                 <input type="text" id="inpGuruPurna" placeholder="Tahun Purna Tugas (misal: 2048)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
               </div>
 
-              <!-- 4 Berkas Kepegawaian Pendidik -->
+              <!-- 4 Tautan Google Drive Berkas Kepegawaian Pendidik -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-amber-200/80">
-                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-2">
-                  <label class="block text-xs font-bold text-slate-800">1. Upload Berkas Ijazah Terakhir</label>
-                  <input type="file" id="fileGuruIjazah" class="block w-full text-xs text-slate-600 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-800 file:font-semibold" />
-                  <input type="url" id="linkGuruIjazah" placeholder="Atau tempel tautan Google Drive Ijazah..." class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs" />
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">1. Link Google Drive Ijazah Terakhir</label>
+                  <input type="url" id="linkGuruIjazah" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
                 </div>
-                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-2">
-                  <label class="block text-xs font-bold text-slate-800">2. Upload Sertifikat Pendidik</label>
-                  <input type="file" id="fileGuruSerdik" class="block w-full text-xs text-slate-600 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-800 file:font-semibold" />
-                  <input type="url" id="linkGuruSerdik" placeholder="Atau tempel tautan Google Drive Serdik..." class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs" />
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">2. Link Google Drive Sertifikat Pendidik</label>
+                  <input type="url" id="linkGuruSerdik" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
                 </div>
-                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-2">
-                  <label class="block text-xs font-bold text-slate-800">3. Upload SK PNS / PPPK</label>
-                  <input type="file" id="fileGuruSkAwal" class="block w-full text-xs text-slate-600 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-800 file:font-semibold" />
-                  <input type="url" id="linkGuruSkAwal" placeholder="Atau tempel tautan Google Drive SK PNS/PPPK..." class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs" />
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">3. Link Google Drive SK PNS / PPPK</label>
+                  <input type="url" id="linkGuruSkAwal" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
                 </div>
-                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-2">
-                  <label class="block text-xs font-bold text-slate-800">4. Upload SK Terakhir PNS / PPPK</label>
-                  <input type="file" id="fileGuruSkAkhir" class="block w-full text-xs text-slate-600 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-800 file:font-semibold" />
-                  <input type="url" id="linkGuruSkAkhir" placeholder="Atau tempel tautan Google Drive SK Terakhir..." class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs" />
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">4. Link Google Drive SK Terakhir PNS / PPPK</label>
+                  <input type="url" id="linkGuruSkAkhir" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
                 </div>
               </div>
 
@@ -709,14 +673,14 @@
           </div>
         </div>
 
-        <!-- 3.3.3 Data Tenaga Kependidikan (dengan upload Ijazah, Sertifikat, SK PNS/PPPK, SK Terakhir) -->
+        <!-- 3.4.3 Data Tenaga Kependidikan (dengan tautan Google Drive Ijazah, Sertifikat, SK PNS/PPPK, SK Terakhir) -->
         <div id="ptk-pane-tendik" class="ptk-pane hidden space-y-5">
           <!-- Admin-Only Form -->
           <div class="admin-upload-card hidden bg-amber-50/70 rounded-2xl p-6 border border-amber-200 space-y-4">
             <div>
               <span class="px-2 py-0.5 rounded bg-amber-500 text-white text-[10px] font-bold uppercase">Khusus Admin</span>
-              <h4 class="text-base font-extrabold text-slate-900 mt-1">Input / Upload Data &amp; Berkas Tenaga Kependidikan</h4>
-              <p class="text-xs text-slate-600">Lengkapi biodata karyawan/TU beserta berkas Ijazah Terakhir, Sertifikat Kompetensi/Pendidik, SK PNS/PPPK, dan SK Terakhir PNS/PPPK.</p>
+              <h4 class="text-base font-extrabold text-slate-900 mt-1">Input Data &amp; Tautan Berkas Google Drive Tenaga Kependidikan</h4>
+              <p class="text-xs text-slate-600">Unggah berkas ke Google Drive terlebih dahulu (atur akses ke <strong>Siapa saja yang memiliki link dapat melihat</strong>), lalu tempelkan tautan Google Drive masing-masing berkas di bawah ini.</p>
             </div>
             <form onsubmit="submitTendik(event)" class="space-y-4">
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -733,27 +697,23 @@
                 <input type="text" id="inpTendikPurna" placeholder="Tahun Purna Tugas (misal: 2059)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
               </div>
 
-              <!-- 4 Berkas Kepegawaian Tendik -->
+              <!-- 4 Tautan Google Drive Berkas Kepegawaian Tendik -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-amber-200/80">
-                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-2">
-                  <label class="block text-xs font-bold text-slate-800">1. Upload Berkas Ijazah Terakhir</label>
-                  <input type="file" id="fileTendikIjazah" class="block w-full text-xs text-slate-600 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-800 file:font-semibold" />
-                  <input type="url" id="linkTendikIjazah" placeholder="Atau tempel tautan Google Drive Ijazah..." class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs" />
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">1. Link Google Drive Ijazah Terakhir</label>
+                  <input type="url" id="linkTendikIjazah" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
                 </div>
-                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-2">
-                  <label class="block text-xs font-bold text-slate-800">2. Upload Sertifikat Pendidik / Kompetensi</label>
-                  <input type="file" id="fileTendikSerdik" class="block w-full text-xs text-slate-600 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-800 file:font-semibold" />
-                  <input type="url" id="linkTendikSerdik" placeholder="Atau tempel tautan Google Drive Sertifikat..." class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs" />
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">2. Link Google Drive Sertifikat Pendidik / Kompetensi</label>
+                  <input type="url" id="linkTendikSerdik" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
                 </div>
-                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-2">
-                  <label class="block text-xs font-bold text-slate-800">3. Upload SK PNS / PPPK</label>
-                  <input type="file" id="fileTendikSkAwal" class="block w-full text-xs text-slate-600 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-800 file:font-semibold" />
-                  <input type="url" id="linkTendikSkAwal" placeholder="Atau tempel tautan Google Drive SK PNS/PPPK..." class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs" />
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">3. Link Google Drive SK PNS / PPPK</label>
+                  <input type="url" id="linkTendikSkAwal" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
                 </div>
-                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-2">
-                  <label class="block text-xs font-bold text-slate-800">4. Upload SK Terakhir PNS / PPPK</label>
-                  <input type="file" id="fileTendikSkAkhir" class="block w-full text-xs text-slate-600 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-800 file:font-semibold" />
-                  <input type="url" id="linkTendikSkAkhir" placeholder="Atau tempel tautan Google Drive SK Terakhir..." class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs" />
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">4. Link Google Drive SK Terakhir PNS / PPPK</label>
+                  <input type="url" id="linkTendikSkAkhir" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
                 </div>
               </div>
 
@@ -791,7 +751,7 @@
           </div>
         </div>
 
-        <!-- 3.3.4 Data Prosentase PTK (1 Halaman Terpadu) -->
+        <!-- 3.4.4 Data Prosentase PTK (1 Halaman Terpadu) -->
         <div id="ptk-pane-prosentase" class="ptk-pane hidden space-y-6">
           <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-6">
             <div>
@@ -823,6 +783,78 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- ===== SUBBAB 3.5: KOMPONEN STANDAR SARANA PRASARANA ===== -->
+      <div id="snp-pane-sarpras" class="snp-pane hidden space-y-5">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-extrabold text-brand-700 uppercase">Subbab 3.5</span>
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Komponen Standar Sarana Prasarana</h3>
+              <p class="text-xs text-slate-500">Data inventarisasi lahan, bangunan ruang belajar, laboratorium, perpustakaan, serta fasilitas penunjang sekolah.</p>
+            </div>
+            <button type="button" onclick="openTextEditor('snp.sarpras', 'Edit Komponen Standar Sarana Prasarana')" class="admin-edit-slot hidden px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Uraian</button>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80">
+            <p id="out-snp-sarpras" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+          </div>
+        </div>
+        <div id="extra-docs-sarpras"></div>
+      </div>
+
+      <!-- ===== SUBBAB 3.6: KOMPONEN STANDAR PENGELOLAAN ===== -->
+      <div id="snp-pane-pengelolaan" class="snp-pane hidden space-y-5">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-extrabold text-brand-700 uppercase">Subbab 3.6</span>
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Komponen Standar Pengelolaan</h3>
+              <p class="text-xs text-slate-500">Perencanaan program kerja sekolah (RKS/RKJM), pelaksanaan rencana kerja, pengawasan, serta sistem informasi manajemen.</p>
+            </div>
+            <button type="button" onclick="openTextEditor('snp.pengelolaan', 'Edit Komponen Standar Pengelolaan')" class="admin-edit-slot hidden px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Uraian</button>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80">
+            <p id="out-snp-pengelolaan" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+          </div>
+        </div>
+        <div id="extra-docs-pengelolaan"></div>
+      </div>
+
+      <!-- ===== SUBBAB 3.7: KOMPONEN STANDAR PEMBIAYAAN ===== -->
+      <div id="snp-pane-pembiayaan" class="snp-pane hidden space-y-5">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-extrabold text-brand-700 uppercase">Subbab 3.7</span>
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Komponen Standar Pembiayaan</h3>
+              <p class="text-xs text-slate-500">Pengelolaan anggaran operasional sekolah (RKAS), transparansi penggunaan dana BOS, dan pelaporan keuangan.</p>
+            </div>
+            <button type="button" onclick="openTextEditor('snp.pembiayaan', 'Edit Komponen Standar Pembiayaan')" class="admin-edit-slot hidden px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Uraian</button>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80">
+            <p id="out-snp-pembiayaan" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+          </div>
+        </div>
+        <div id="extra-docs-pembiayaan"></div>
+      </div>
+
+      <!-- ===== SUBBAB 3.8: KOMPONEN STANDAR PENILAIAN ===== -->
+      <div id="snp-pane-penilaian" class="snp-pane hidden space-y-5">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-extrabold text-brand-700 uppercase">Subbab 3.8</span>
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Komponen Standar Penilaian</h3>
+              <p class="text-xs text-slate-500">Mekanisme asesmen formatif, asesmen sumatif, kriteria ketercapaian tujuan pembelajaran, dan pelaporan hasil belajar.</p>
+            </div>
+            <button type="button" onclick="openTextEditor('snp.penilaian', 'Edit Komponen Standar Penilaian')" class="admin-edit-slot hidden px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Uraian</button>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80">
+            <p id="out-snp-penilaian" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+          </div>
+        </div>
+        <div id="extra-docs-penilaian"></div>
       </div>
     </section>
 
@@ -1004,6 +1036,43 @@
     </div>
   </div>
 
+  <!-- ==================== MODAL: DETAIL PROFIL PENDIDIK / TENDIK ==================== -->
+  <div id="modalPtkDetail" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 space-y-5 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-start justify-between gap-3 border-b border-slate-100 pb-4">
+        <div>
+          <span id="ptkDetailRoleBadge" class="inline-block px-2.5 py-0.5 rounded-full bg-brand-50 text-brand-800 text-[11px] font-extrabold uppercase">Detail PTK</span>
+          <h3 id="ptkDetailName" class="text-lg sm:text-xl font-extrabold text-slate-900 mt-1">Nama Lengkap</h3>
+          <p id="ptkDetailSub" class="text-xs text-slate-500 mt-0.5">NIP &bull; Jabatan / Mapel</p>
+        </div>
+        <button type="button" onclick="closeModalById('modalPtkDetail')" class="p-1.5 rounded-xl text-slate-400 hover:bg-slate-100 hover:text-slate-700 shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Biodata Lengkap -->
+      <div id="ptkDetailBioGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+
+      <!-- Kelengkapan Berkas yang Diupload -->
+      <div class="space-y-3 pt-2 border-t border-slate-100">
+        <div>
+          <h4 class="text-sm font-extrabold text-slate-900">Kelengkapan Berkas Kepegawaian</h4>
+          <p class="text-xs text-slate-500">Klik tombol pada masing-masing berkas di bawah untuk melihat foto atau dokumen yang telah diunggah.</p>
+        </div>
+        <div id="ptkDetailDocsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+      </div>
+
+      <!-- Inline Preview Area inside Detail Modal -->
+      <div id="ptkDetailInlinePreview" class="hidden space-y-2 pt-3 border-t border-slate-100">
+        <div class="flex items-center justify-between">
+          <span id="ptkDetailPreviewLabel" class="text-xs font-extrabold text-brand-900">Pratinjau Berkas</span>
+          <button type="button" onclick="document.getElementById('ptkDetailInlinePreview').classList.add('hidden')" class="text-xs font-semibold text-slate-500 hover:text-slate-800">Tutup Pratinjau</button>
+        </div>
+        <div id="ptkDetailPreviewContent" class="bg-slate-50 rounded-2xl border border-slate-200 p-3 flex flex-col items-center justify-center"></div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ==================== STATE & STORAGE ====================
     const STORAGE_KEY = 'smpn1_karangmojo_portal_v2';
@@ -1060,6 +1129,18 @@
         kspPdf: '',
         kspPdfName: '',
         alokasiWaktu: '• Alokasi waktu 1 jam pelajaran tatap muka = 40 menit.\n• Beban belajar disesuaikan dengan struktur kurikulum kelas VII, VIII, dan IX per minggu.\n• Pelaksanaan pembelajaran terbagi dalam Semester Ganjil dan Semester Genap sesuai kalender pendidikan Dinas Pendidikan Kabupaten Gunungkidul.',
+        skl: 'Standar Kompetensi Lulusan (SKL) SMP Negeri 1 Karangmojo berfokus pada pencapaian karakter Profil Pelajar Pancasila, penguasaan literasi dan numerasi, serta kesiapan peserta didik melanjutkan pendidikan ke jenjang menengah atas/kejuruan.',
+        sarpras: 'Standar Sarana dan Prasarana mencakup ketersediaan ruang kelas, laboratorium IPA dan komputer, perpustakaan, ruang layanan BK/UKS, fasilitas olahraga, serta sarana pembelajaran berbasis TIK yang terpelihara secara berkala.',
+        pengelolaan: 'Standar Pengelolaan meliputi penyusunan Rencana Kerja Jangka Menengah (RKJM), Rencana Kerja Tahunan (RKT), supervisi akademik kepala sekolah, serta kemitraan dengan komite sekolah dan masyarakat.',
+        pembiayaan: 'Standar Pembiayaan mengatur perencanaan, pelaksanaan, dan pelaporan Rencana Kegiatan dan Anggaran Sekolah (RKAS) secara akuntabel dan transparan sesuai ketentuan pengelolaan dana pendidikan.',
+        penilaian: 'Standar Penilaian Pendidikan meliputi pelaksanaan asesmen diagnostik, formatif, sumatif lingkup materi, sumatif akhir semester, serta pengolahan nilai rapor peserta didik.',
+        extraDocs: {
+          skl: [],
+          sarpras: [],
+          pengelolaan: [],
+          pembiayaan: [],
+          penilaian: []
+        },
         perangkat: [
           {
             id: 'prk-1',
@@ -1589,13 +1670,13 @@
       persistPortalState(true);
     }
 
-    async function submitPendidik(e) {
+    function submitPendidik(e) {
       e.preventDefault();
       if (!adminLoggedIn) return;
-      const ijazah = await resolveDocValue('fileGuruIjazah', 'linkGuruIjazah');
-      const serdik = await resolveDocValue('fileGuruSerdik', 'linkGuruSerdik');
-      const skAwal = await resolveDocValue('fileGuruSkAwal', 'linkGuruSkAwal');
-      const skAkhir = await resolveDocValue('fileGuruSkAkhir', 'linkGuruSkAkhir');
+      const ijazah = (document.getElementById('linkGuruIjazah')?.value || '').trim();
+      const serdik = (document.getElementById('linkGuruSerdik')?.value || '').trim();
+      const skAwal = (document.getElementById('linkGuruSkAwal')?.value || '').trim();
+      const skAkhir = (document.getElementById('linkGuruSkAkhir')?.value || '').trim();
 
       state.snp.pendidik.push({
         id: 'gr-' + Date.now(),
@@ -1611,13 +1692,13 @@
       persistPortalState(true);
     }
 
-    async function submitTendik(e) {
+    function submitTendik(e) {
       e.preventDefault();
       if (!adminLoggedIn) return;
-      const ijazah = await resolveDocValue('fileTendikIjazah', 'linkTendikIjazah');
-      const serdik = await resolveDocValue('fileTendikSerdik', 'linkTendikSerdik');
-      const skAwal = await resolveDocValue('fileTendikSkAwal', 'linkTendikSkAwal');
-      const skAkhir = await resolveDocValue('fileTendikSkAkhir', 'linkTendikSkAkhir');
+      const ijazah = (document.getElementById('linkTendikIjazah')?.value || '').trim();
+      const serdik = (document.getElementById('linkTendikSerdik')?.value || '').trim();
+      const skAwal = (document.getElementById('linkTendikSkAwal')?.value || '').trim();
+      const skAkhir = (document.getElementById('linkTendikSkAkhir')?.value || '').trim();
 
       state.snp.tendik.push({
         id: 'td-' + Date.now(),
@@ -1675,6 +1756,91 @@
       if (!adminLoggedIn) return;
       state.serbaSerbi.catatan = state.serbaSerbi.catatan.filter(item => item.id !== id);
       persistPortalState(true);
+    }
+
+    function submitExtraSnpDoc(e, sectionKey) {
+      e.preventDefault();
+      if (!adminLoggedIn) return;
+      const judulEl = document.getElementById(`inpExtraJudul-${sectionKey}`);
+      const ketEl = document.getElementById(`inpExtraKet-${sectionKey}`);
+      const linkEl = document.getElementById(`inpExtraLink-${sectionKey}`);
+      if (!state.snp.extraDocs) state.snp.extraDocs = {};
+      if (!Array.isArray(state.snp.extraDocs[sectionKey])) state.snp.extraDocs[sectionKey] = [];
+      state.snp.extraDocs[sectionKey].push({
+        id: 'ext-' + Date.now(),
+        judul: (judulEl?.value || '').trim(),
+        keterangan: (ketEl?.value || '').trim(),
+        link: (linkEl?.value || '').trim()
+      });
+      e.target.reset();
+      persistPortalState(true);
+    }
+
+    function deleteExtraSnpDoc(sectionKey, id) {
+      if (!adminLoggedIn) return;
+      if (!state.snp.extraDocs || !Array.isArray(state.snp.extraDocs[sectionKey])) return;
+      state.snp.extraDocs[sectionKey] = state.snp.extraDocs[sectionKey].filter(item => item.id !== id);
+      persistPortalState(true);
+    }
+
+    function renderExtraSnpSection(sectionKey, sectionTitle) {
+      const host = document.getElementById(`extra-docs-${sectionKey}`);
+      if (!host) return;
+      const docs = (state.snp?.extraDocs && Array.isArray(state.snp.extraDocs[sectionKey]))
+        ? state.snp.extraDocs[sectionKey]
+        : [];
+
+      host.innerHTML = `
+        <div class="space-y-4">
+          <div class="admin-upload-card ${adminLoggedIn ? '' : 'hidden'} bg-amber-50/70 rounded-2xl p-6 border border-amber-200 space-y-3">
+            <div>
+              <span class="px-2 py-0.5 rounded bg-amber-500 text-white text-[10px] font-bold uppercase">Khusus Admin</span>
+              <h4 class="text-base font-extrabold text-slate-900 mt-1">Tambah Dokumen / Tautan Google Drive — ${escapeHtml(sectionTitle)}</h4>
+            </div>
+            <form onsubmit="submitExtraSnpDoc(event, '${sectionKey}')" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <input type="text" id="inpExtraJudul-${sectionKey}" required placeholder="Nama Dokumen / Program" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+              <input type="text" id="inpExtraKet-${sectionKey}" placeholder="Keterangan / Tahun" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+              <input type="url" id="inpExtraLink-${sectionKey}" placeholder="Link Google Drive Dokumen (Opsional)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+              <div class="sm:col-span-3 flex justify-end">
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">Simpan Dokumen</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-base font-extrabold text-slate-900">Dokumen Pendukung ${escapeHtml(sectionTitle)}</h4>
+              <span class="px-3 py-1 rounded-full bg-brand-50 text-brand-800 text-xs font-bold">${docs.length} Dokumen</span>
+            </div>
+            <div class="overflow-x-auto rounded-xl border border-slate-200">
+              <table class="min-w-full divide-y divide-slate-200 text-xs sm:text-sm">
+                <thead class="bg-slate-100 text-slate-700 font-bold">
+                  <tr>
+                    <th class="px-4 py-3 text-left">No</th>
+                    <th class="px-4 py-3 text-left">Nama Dokumen</th>
+                    <th class="px-4 py-3 text-left">Keterangan</th>
+                    <th class="px-4 py-3 text-left">Tautan Google Drive</th>
+                    <th class="admin-col-header ${adminLoggedIn ? '' : 'hidden'} px-4 py-3 text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 bg-white">
+                  ${docs.length ? docs.map((d, i) => `
+                    <tr class="hover:bg-slate-50">
+                      <td class="px-4 py-3 text-slate-500">${i + 1}</td>
+                      <td class="px-4 py-3 font-semibold text-slate-900">${escapeHtml(d.judul)}</td>
+                      <td class="px-4 py-3 text-slate-600">${escapeHtml(d.keterangan || '-')}</td>
+                      <td class="px-4 py-3">${renderDocBadge('Dokumen', d.link, d.judul)}</td>
+                      <td class="admin-col-cell ${adminLoggedIn ? '' : 'hidden'} px-4 py-3 text-center">
+                        <button type="button" onclick="deleteExtraSnpDoc('${sectionKey}', '${escapeHtml(d.id)}')" class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold">Hapus</button>
+                      </td>
+                    </tr>
+                  `).join('') : `<tr><td colspan="5" class="px-4 py-5 text-center text-slate-400">Belum ada dokumen pendukung yang ditambahkan.</td></tr>`}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
     }
 
     // ==================== RENDERING HELPERS ====================
@@ -1736,6 +1902,153 @@
         bodyEl.innerHTML = `<a href="${escapeHtml(src)}" download="berkas-kepegawaian" class="px-4 py-2 rounded-xl bg-brand-800 text-white text-xs font-bold">Unduh Berkas</a>`;
       }
       document.getElementById('modalDocViewer')?.classList.remove('hidden');
+    }
+
+    function renderDetailDocCard(title, val, ownerName) {
+      if (!val) {
+        return `
+          <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50/70 flex items-center justify-between gap-3">
+            <div>
+              <span class="block text-xs font-bold text-slate-700">${escapeHtml(title)}</span>
+              <span class="inline-block mt-1 px-2 py-0.5 rounded bg-slate-200/70 text-slate-500 text-[11px] font-medium">Belum ada tautan Drive</span>
+            </div>
+          </div>
+        `;
+      }
+
+      if (/^https?:\/\//i.test(val)) {
+        return `
+          <div class="p-4 rounded-2xl border border-brand-200 bg-brand-50/30 flex flex-col justify-between gap-2.5">
+            <div>
+              <span class="block text-xs font-extrabold text-slate-900">${escapeHtml(title)}</span>
+              <span class="inline-block mt-1 px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[11px] font-bold">Tersedia di Google Drive</span>
+            </div>
+            <div>
+              <a href="${escapeHtml(val)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">
+                <span>Buka di Google Drive</span>
+                <span>&nearr;</span>
+              </a>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="p-4 rounded-2xl border border-emerald-200 bg-emerald-50/30 flex items-center justify-between gap-3">
+          <div>
+            <span class="block text-xs font-extrabold text-slate-900">${escapeHtml(title)}</span>
+            <span class="inline-block mt-1 px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[11px] font-bold">Status: ${escapeHtml(val)}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function showInlinePtkPreview(btn) {
+      const title = btn.getAttribute('data-preview-title') || 'Pratinjau Berkas';
+      const type = btn.getAttribute('data-preview-type') || 'image';
+      const src = btn.getAttribute('data-preview-src') || '';
+      const wrapper = document.getElementById('ptkDetailInlinePreview');
+      const labelEl = document.getElementById('ptkDetailPreviewLabel');
+      const contentEl = document.getElementById('ptkDetailPreviewContent');
+      if (!wrapper || !contentEl) return;
+
+      if (labelEl) labelEl.textContent = title;
+      if (type === 'image') {
+        contentEl.innerHTML = `<img src="${escapeHtml(src)}" alt="${escapeHtml(title)}" class="max-h-[55vh] w-auto rounded-xl shadow-sm object-contain" />`;
+      } else if (type === 'iframe') {
+        contentEl.innerHTML = `<iframe src="${escapeHtml(src)}" title="${escapeHtml(title)}" class="w-full h-[55vh] rounded-xl border-0"></iframe>`;
+      } else {
+        contentEl.innerHTML = `<a href="${escapeHtml(src)}" download="berkas-kepegawaian" class="px-4 py-2 rounded-xl bg-brand-800 text-white text-xs font-bold">Unduh Berkas</a>`;
+      }
+      wrapper.classList.remove('hidden');
+      wrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function openPtkDetailModal(category, id) {
+      const list = category === 'pendidik' ? (state.snp?.pendidik || []) : (state.snp?.tendik || []);
+      const person = list.find(item => item.id === id);
+      if (!person) return;
+
+      const inlinePreview = document.getElementById('ptkDetailInlinePreview');
+      if (inlinePreview) inlinePreview.classList.add('hidden');
+
+      setTextSafe('ptkDetailRoleBadge', category === 'pendidik' ? 'Data Lengkap Pendidik (Guru)' : 'Data Lengkap Tenaga Kependidikan');
+      setTextSafe('ptkDetailName', person.nama);
+      setTextSafe(
+        'ptkDetailSub',
+        category === 'pendidik'
+          ? `NIP: ${person.nip || '-'} • Guru Mata Pelajaran ${person.mapel || '-'}`
+          : `NIP: ${person.nip || '-'} • ${person.jabatan || 'Tenaga Kependidikan'}`
+      );
+
+      const bioGrid = document.getElementById('ptkDetailBioGrid');
+      if (bioGrid) {
+        if (category === 'pendidik') {
+          bioGrid.innerHTML = `
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Nama Lengkap</span>
+              <p class="text-xs sm:text-sm font-extrabold text-slate-900 mt-1">${escapeHtml(person.nama)}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">NIP / NUPTK</span>
+              <p class="text-xs sm:text-sm font-bold text-slate-800 font-mono mt-1">${escapeHtml(person.nip || '-')}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Mengajar Mata Pelajaran</span>
+              <p class="text-xs sm:text-sm font-bold text-slate-800 mt-1">${escapeHtml(person.mapel || '-')}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Pendidikan Terakhir</span>
+              <p class="text-xs sm:text-sm font-extrabold text-brand-800 mt-1">${escapeHtml(person.pendidikan || '-')}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Status Sertifikasi</span>
+              <p class="text-xs sm:text-sm font-extrabold ${person.sertifikasi === 'Sudah' ? 'text-emerald-700' : 'text-amber-700'} mt-1">${escapeHtml(person.sertifikasi === 'Sudah' ? 'Sudah Sertifikasi Pendidik' : 'Belum Sertifikasi Pendidik')}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Perkiraan Purna Tugas</span>
+              <p class="text-xs sm:text-sm font-bold text-slate-800 mt-1">Tahun ${escapeHtml(person.purna || '-')}</p>
+            </div>
+          `;
+        } else {
+          bioGrid.innerHTML = `
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Nama Lengkap</span>
+              <p class="text-xs sm:text-sm font-extrabold text-slate-900 mt-1">${escapeHtml(person.nama)}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">NIP / NI PPPK</span>
+              <p class="text-xs sm:text-sm font-bold text-slate-800 font-mono mt-1">${escapeHtml(person.nip || '-')}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Jabatan / Unit Tugas</span>
+              <p class="text-xs sm:text-sm font-bold text-slate-800 mt-1">${escapeHtml(person.jabatan || '-')}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Pendidikan Terakhir</span>
+              <p class="text-xs sm:text-sm font-extrabold text-brand-800 mt-1">${escapeHtml(person.pendidikan || '-')}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200 sm:col-span-2">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Perkiraan Purna Tugas</span>
+              <p class="text-xs sm:text-sm font-bold text-slate-800 mt-1">Tahun ${escapeHtml(person.purna || '-')}</p>
+            </div>
+          `;
+        }
+      }
+
+      const b = person.berkas || {};
+      const docsGrid = document.getElementById('ptkDetailDocsGrid');
+      if (docsGrid) {
+        const secondDocTitle = category === 'pendidik' ? '2. Sertifikat Pendidik' : '2. Sertifikat Pendidik / Kompetensi';
+        docsGrid.innerHTML = `
+          ${renderDetailDocCard('1. Ijazah Terakhir', b.ijazah, person.nama)}
+          ${renderDetailDocCard(secondDocTitle, b.serdik, person.nama)}
+          ${renderDetailDocCard('3. SK PNS / PPPK', b.skAwal, person.nama)}
+          ${renderDetailDocCard('4. SK Terakhir PNS / PPPK', b.skAkhir, person.nama)}
+        `;
+      }
+
+      document.getElementById('modalPtkDetail')?.classList.remove('hidden');
     }
 
     function renderForsakaSub() {
@@ -1866,6 +2179,18 @@
       setTextSafe('out-snp-ksp', state.snp?.ksp);
       renderKspPdfViewer();
       setTextSafe('out-snp-alokasiWaktu', state.snp?.alokasiWaktu);
+      setTextSafe('out-snp-skl', state.snp?.skl);
+      setTextSafe('out-snp-sarpras', state.snp?.sarpras);
+      setTextSafe('out-snp-pengelolaan', state.snp?.pengelolaan);
+      setTextSafe('out-snp-pembiayaan', state.snp?.pembiayaan);
+      setTextSafe('out-snp-penilaian', state.snp?.penilaian);
+
+      renderExtraSnpSection('skl', 'Standar Kelulusan / SKL');
+      renderExtraSnpSection('sarpras', 'Standar Sarana Prasarana');
+      renderExtraSnpSection('pengelolaan', 'Standar Pengelolaan');
+      renderExtraSnpSection('pembiayaan', 'Standar Pembiayaan');
+      renderExtraSnpSection('penilaian', 'Standar Penilaian');
+
       setTextSafe('out-serbaSerbi-pengantar', state.serbaSerbi?.pengantar);
       setTextSafe('out-tentangKami-umum', state.tentangKami?.umum);
       setTextSafe('out-tentangKami-kontak', state.tentangKami?.kontak);
@@ -1958,7 +2283,12 @@
           return `
             <tr class="hover:bg-slate-50">
               <td class="px-3 py-3 text-slate-500">${idx + 1}</td>
-              <td class="px-3 py-3 font-bold text-slate-900">${escapeHtml(g.nama)}</td>
+              <td class="px-3 py-3 font-bold">
+                <button type="button" onclick="openPtkDetailModal('pendidik', '${escapeHtml(g.id)}')" class="text-left text-brand-800 hover:text-brand-950 hover:underline focus:outline-none inline-flex items-center gap-1 group">
+                  <span>${escapeHtml(g.nama)}</span>
+                  <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-brand-50 text-brand-700 group-hover:bg-brand-100">Detail</span>
+                </button>
+              </td>
               <td class="px-3 py-3 text-slate-600 font-mono">${escapeHtml(g.nip)}</td>
               <td class="px-3 py-3 text-slate-700">${escapeHtml(g.mapel)}</td>
               <td class="px-3 py-3 text-center"><span class="px-2 py-0.5 rounded-md bg-brand-50 text-brand-800 font-bold">${escapeHtml(g.pendidikan)}</span></td>
@@ -1992,7 +2322,12 @@
           return `
             <tr class="hover:bg-slate-50">
               <td class="px-3 py-3 text-slate-500">${idx + 1}</td>
-              <td class="px-3 py-3 font-bold text-slate-900">${escapeHtml(t.nama)}</td>
+              <td class="px-3 py-3 font-bold">
+                <button type="button" onclick="openPtkDetailModal('tendik', '${escapeHtml(t.id)}')" class="text-left text-brand-800 hover:text-brand-950 hover:underline focus:outline-none inline-flex items-center gap-1 group">
+                  <span>${escapeHtml(t.nama)}</span>
+                  <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-brand-50 text-brand-700 group-hover:bg-brand-100">Detail</span>
+                </button>
+              </td>
               <td class="px-3 py-3 text-slate-600 font-mono">${escapeHtml(t.nip)}</td>
               <td class="px-3 py-3 text-slate-700">${escapeHtml(t.jabatan)}</td>
               <td class="px-3 py-3 text-center"><span class="px-2 py-0.5 rounded-md bg-brand-50 text-brand-800 font-bold">${escapeHtml(t.pendidikan)}</span></td>
