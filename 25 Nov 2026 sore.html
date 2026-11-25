@@ -1,0 +1,2422 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMP Negeri 1 Karangmojo — Portal Informasi &amp; SNP Sekolah</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e3a8a',
+              900: '#0f2354',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .nav-active {
+      background-color: #1e3a8a;
+      color: #ffffff;
+    }
+    .subtab-active {
+      background-color: #1e3a8a;
+      color: #ffffff;
+      border-color: #1e3a8a;
+    }
+    .card-hover {
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -8px rgba(15, 35, 84, 0.14);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-100 selection:text-brand-900">
+
+  <!-- TOP HEADER & NAVIGATION -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-3">
+        <!-- School Brand -->
+        <button type="button" onclick="navigateTo('home')" class="flex items-center gap-3 text-left focus:outline-none group shrink-0">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-800 to-brand-900 text-white flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+            <svg class="w-6 h-6 text-amber-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+            </svg>
+          </div>
+          <div>
+            <span class="block text-sm sm:text-base font-extrabold text-brand-900 tracking-tight leading-tight">SMP NEGERI 1 KARANGMOJO</span>
+            <span class="block text-[11px] font-medium text-slate-500 leading-tight">Karangmojo, Gunungkidul, DIY</span>
+          </div>
+        </button>
+
+        <!-- Primary Navigation (Desktop) -->
+        <nav class="hidden lg:flex items-center gap-1" aria-label="Navigasi Utama">
+          <button type="button" data-nav="home" onclick="navigateTo('home')" class="nav-btn nav-active px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-100 transition">Beranda</button>
+          <button type="button" data-nav="profil" onclick="navigateTo('profil')" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-100 transition">01. Profil Sekolah</button>
+          <button type="button" data-nav="forsaka" onclick="navigateTo('forsaka')" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-100 transition">02. FORSAKA</button>
+          <button type="button" data-nav="snp" onclick="navigateTo('snp')" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-100 transition">03. SNP</button>
+          <button type="button" data-nav="serbaserbi" onclick="navigateTo('serbaserbi')" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-100 transition">04. Serba Serbi</button>
+          <button type="button" data-nav="tentang" onclick="navigateTo('tentang')" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-100 transition">05. Tentang Kami</button>
+        </nav>
+
+        <!-- Right Corner Admin Access -->
+        <div class="flex items-center gap-2 shrink-0">
+          <!-- Shown only when logged out -->
+          <button type="button" id="btnAdminLogin" onclick="openAdminLoginModal()" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-brand-800 hover:text-white border border-slate-200 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            <span>Login Admin</span>
+          </button>
+
+          <!-- Shown only after Admin Login -->
+          <div id="adminControlsBar" class="hidden items-center gap-1.5">
+            <span class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              Admin Aktif
+            </span>
+            <button type="button" onclick="openAdminPanelModal()" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-brand-800 text-white hover:bg-brand-900 transition shadow-sm">
+              <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              <span>Panel Admin</span>
+            </button>
+            <button type="button" onclick="logoutAdmin()" title="Keluar Admin" class="inline-flex items-center gap-1 px-2.5 py-2 rounded-xl text-xs font-semibold bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 transition">
+              <span>Keluar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Horizontal Navigation -->
+      <div class="flex lg:hidden items-center gap-1.5 overflow-x-auto no-scrollbar pb-2.5 pt-1 border-t border-slate-100">
+        <button type="button" data-nav="home" onclick="navigateTo('home')" class="nav-btn nav-active shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100">Beranda</button>
+        <button type="button" data-nav="profil" onclick="navigateTo('profil')" class="nav-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100">01. Profil</button>
+        <button type="button" data-nav="forsaka" onclick="navigateTo('forsaka')" class="nav-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100">02. FORSAKA</button>
+        <button type="button" data-nav="snp" onclick="navigateTo('snp')" class="nav-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100">03. SNP</button>
+        <button type="button" data-nav="serbaserbi" onclick="navigateTo('serbaserbi')" class="nav-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100">04. Serba Serbi</button>
+        <button type="button" data-nav="tentang" onclick="navigateTo('tentang')" class="nav-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100">05. Tentang Kami</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ADMIN ACTIVE EDIT BANNER (VISIBLE ONLY WHEN ADMIN LOGGED IN & EDIT MODE ON) -->
+  <div id="editModeBanner" class="hidden bg-amber-50 border-b border-amber-200 text-amber-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 font-medium">
+        <span class="px-2 py-0.5 rounded-md bg-amber-500 text-white font-bold text-[11px]">MODE EDIT AKTIF</span>
+        <span>Klik tombol <strong>Edit</strong> pada blok teks di setiap bab untuk memperbarui isi website SMP Negeri 1 Karangmojo.</span>
+      </div>
+      <button type="button" onclick="toggleContentEditMode(false)" class="px-3 py-1 rounded-lg bg-amber-200/80 hover:bg-amber-300 font-semibold text-amber-950 transition">
+        Selesai Edit
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+
+    <!-- ==================== VIEW: BERANDA ==================== -->
+    <section id="view-home" class="view-section space-y-8">
+      <!-- Hero Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-900 via-brand-800 to-slate-900 text-white p-6 sm:p-10 lg:p-12 shadow-lg">
+        <div class="absolute -right-16 -top-16 w-72 h-72 rounded-full bg-amber-400/10 blur-2xl pointer-events-none"></div>
+        <div class="absolute -left-16 -bottom-20 w-72 h-72 rounded-full bg-blue-400/10 blur-2xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-3xl space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-amber-300 text-xs font-semibold">
+            <span>Portal Resmi Informasi &amp; Administrasi Pendidikan</span>
+          </div>
+          <h1 id="out-hero-title" class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+            SMP Negeri 1 Karangmojo
+          </h1>
+          <p id="out-hero-subtitle" class="text-sm sm:text-base text-blue-100 leading-relaxed max-w-2xl">
+            Mewujudkan peserta didik yang berkarakter, berprestasi, berbudaya, dan berwawasan lingkungan melalui layanan pendidikan yang transparan dan terintegrasi.
+          </p>
+          <div class="admin-edit-slot hidden pt-1">
+            <button type="button" onclick="openTextEditor('hero.subtitle', 'Edit Deskripsi Beranda')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-400 text-slate-950 text-xs font-bold hover:bg-amber-300 transition">
+              Edit Teks Beranda
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 Bab Utama Grid -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">Lima Bab Utama Portal Sekolah</h2>
+            <p class="text-xs sm:text-sm text-slate-500">Pilih bab di bawah ini untuk melihat informasi sekolah, organisasi siswa, dan dokumen SNP.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+          <!-- 01 Profil Sekolah -->
+          <button type="button" onclick="navigateTo('profil')" class="card-hover text-left bg-white rounded-2xl p-6 border border-slate-200 hover:border-brand-600 focus:outline-none group">
+            <div class="flex items-start justify-between gap-4">
+              <div class="space-y-2">
+                <span class="inline-block px-2.5 py-1 rounded-lg bg-brand-50 text-brand-800 text-xs font-extrabold">BAB 01</span>
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-800 transition">Profil Sekolah</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Identitas sekolah, sejarah singkat, visi dan misi, struktur organisasi, serta sarana prasarana SMP Negeri 1 Karangmojo.
+                </p>
+              </div>
+              <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-800 flex items-center justify-center shrink-0 group-hover:bg-brand-800 group-hover:text-white transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+              </div>
+            </div>
+          </button>
+
+          <!-- 02 FORSAKA -->
+          <button type="button" onclick="navigateTo('forsaka')" class="card-hover text-left bg-white rounded-2xl p-6 border border-slate-200 hover:border-brand-600 focus:outline-none group">
+            <div class="flex items-start justify-between gap-4">
+              <div class="space-y-2">
+                <span class="inline-block px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 text-xs font-extrabold">BAB 02</span>
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-800 transition">FORSAKA (Organisasi Sekolah)</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Wadah kegiatan kesiswaan SMP Negeri 1 Karangmojo meliputi OSIS, ROHIS, PERSISKA, PPK, dan Dewan Penggalang.
+                </p>
+              </div>
+              <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0 group-hover:bg-amber-600 group-hover:text-white transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+            </div>
+          </button>
+
+          <!-- 03 SNP (Full-width spanning row for neat layout) -->
+          <button type="button" onclick="navigateTo('snp')" class="md:col-span-2 card-hover text-left bg-gradient-to-r from-white via-brand-50/40 to-white rounded-2xl p-6 sm:p-7 border border-brand-200 hover:border-brand-700 focus:outline-none group">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="space-y-2 max-w-4xl">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="inline-block px-2.5 py-1 rounded-lg bg-brand-800 text-white text-xs font-extrabold">BAB 03</span>
+                  <span class="text-xs font-semibold text-brand-700">8 Komponen Standar Nasional Pendidikan (3.1 – 3.8)</span>
+                </div>
+                <h3 class="text-lg sm:text-xl font-extrabold text-slate-900 group-hover:text-brand-800 transition">SNP (Standar Nasional Pendidikan)</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Mencakup Standar Isi, Standar Proses, Standar Kelulusan/SKL, Standar Tendik, Standar Sarana Prasarana, Standar Pengelolaan, Standar Pembiayaan, dan Standar Penilaian SMP Negeri 1 Karangmojo.
+                </p>
+              </div>
+              <div class="w-11 h-11 rounded-2xl bg-brand-800 text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 text-amber-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
+            </div>
+          </button>
+
+          <!-- 04 Serba Serbi -->
+          <button type="button" onclick="navigateTo('serbaserbi')" class="card-hover text-left bg-white rounded-2xl p-6 border border-slate-200 hover:border-brand-600 focus:outline-none group">
+            <div class="flex items-start justify-between gap-4">
+              <div class="space-y-2">
+                <span class="inline-block px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 text-xs font-extrabold">BAB 04</span>
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-800 transition">Serba Serbi</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Ragam cerita, prestasi, agenda, inovasi, dan dokumentasi kegiatan menarik warga SMP Negeri 1 Karangmojo.
+                </p>
+              </div>
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 group-hover:bg-emerald-700 group-hover:text-white transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+              </div>
+            </div>
+          </button>
+
+          <!-- 05 Tentang Kami -->
+          <button type="button" onclick="navigateTo('tentang')" class="card-hover text-left bg-white rounded-2xl p-6 border border-slate-200 hover:border-brand-600 focus:outline-none group">
+            <div class="flex items-start justify-between gap-4">
+              <div class="space-y-2">
+                <span class="inline-block px-2.5 py-1 rounded-lg bg-purple-50 text-purple-800 text-xs font-extrabold">BAB 05</span>
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-800 transition">Tentang Kami</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Informasi pengelola website, alamat lengkap, kontak layanan informasi, serta panduan pemanfaatan portal sekolah.
+                </p>
+              </div>
+              <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center shrink-0 group-hover:bg-purple-700 group-hover:text-white transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Live Summary Strip -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div class="bg-white rounded-2xl p-4 border border-slate-200">
+          <span class="text-xs font-medium text-slate-500">Total Pendidik Terdata</span>
+          <p id="homeStatGuru" class="text-2xl font-extrabold text-brand-900 mt-1">0</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-slate-200">
+          <span class="text-xs font-medium text-slate-500">Pendidik Tersertifikasi</span>
+          <p id="homeStatSertifikasi" class="text-2xl font-extrabold text-emerald-700 mt-1">0%</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-slate-200">
+          <span class="text-xs font-medium text-slate-500">Total Tenaga Kependidikan</span>
+          <p id="homeStatTendik" class="text-2xl font-extrabold text-brand-900 mt-1">0</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-slate-200">
+          <span class="text-xs font-medium text-slate-500">Organisasi FORSAKA</span>
+          <p class="text-2xl font-extrabold text-amber-600 mt-1">5 Sub-Organisasi</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: 01 PROFIL SEKOLAH ==================== -->
+    <section id="view-profil" class="view-section hidden space-y-6">
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+        <span class="inline-block px-3 py-1 rounded-full bg-brand-50 text-brand-800 text-xs font-bold mb-2">BAB 01</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Profil Sekolah</h2>
+        <p class="text-sm text-slate-600 mt-1">Informasi umum, sejarah singkat, visi misi, dan sarana prasarana SMP Negeri 1 Karangmojo.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Identitas & Sejarah -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-base font-bold text-brand-900">Identitas &amp; Sejarah Singkat</h3>
+            <button type="button" onclick="openTextEditor('profil.identitas', 'Edit Identitas & Sejarah Singkat')" class="admin-edit-slot hidden px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit</button>
+          </div>
+          <p id="out-profil-identitas" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+        </div>
+
+        <!-- Visi & Misi -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-base font-bold text-brand-900">Visi, Misi &amp; Tujuan Sekolah</h3>
+            <button type="button" onclick="openTextEditor('profil.visiMisi', 'Edit Visi, Misi & Tujuan Sekolah')" class="admin-edit-slot hidden px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit</button>
+          </div>
+          <p id="out-profil-visiMisi" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+        </div>
+
+        <!-- Sarana & Prasarana -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-base font-bold text-brand-900">Sarana &amp; Prasarana</h3>
+            <button type="button" onclick="openTextEditor('profil.sarpras', 'Edit Sarana & Prasarana')" class="admin-edit-slot hidden px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit</button>
+          </div>
+          <p id="out-profil-sarpras" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+        </div>
+
+        <!-- Prestasi & Budaya Sekolah -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-base font-bold text-brand-900">Budaya &amp; Keunggulan Sekolah</h3>
+            <button type="button" onclick="openTextEditor('profil.budaya', 'Edit Budaya & Keunggulan Sekolah')" class="admin-edit-slot hidden px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit</button>
+          </div>
+          <p id="out-profil-budaya" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: 02 FORSAKA ==================== -->
+    <section id="view-forsaka" class="view-section hidden space-y-6">
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="inline-block px-3 py-1 rounded-full bg-amber-50 text-amber-800 text-xs font-bold mb-2">BAB 02</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">FORSAKA (Forum Organisasi Sekolah)</h2>
+          </div>
+          <button type="button" onclick="openTextEditor('forsaka.pengantar', 'Edit Pengantar FORSAKA')" class="admin-edit-slot hidden px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Pengantar</button>
+        </div>
+        <p id="out-forsaka-pengantar" class="text-sm text-slate-600 leading-relaxed"></p>
+
+        <!-- Sub-organisasi Tabs -->
+        <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-100">
+          <button type="button" data-forsaka="osis" onclick="selectForsakaSub('osis')" class="forsaka-tab subtab-active px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 transition">OSIS</button>
+          <button type="button" data-forsaka="rohis" onclick="selectForsakaSub('rohis')" class="forsaka-tab px-4 py-2 rounded-xl text-xs font-bold bg-slate-50 text-slate-700 border border-slate-200 hover:bg-slate-100 transition">ROHIS</button>
+          <button type="button" data-forsaka="persiska" onclick="selectForsakaSub('persiska')" class="forsaka-tab px-4 py-2 rounded-xl text-xs font-bold bg-slate-50 text-slate-700 border border-slate-200 hover:bg-slate-100 transition">PERSISKA</button>
+          <button type="button" data-forsaka="ppk" onclick="selectForsakaSub('ppk')" class="forsaka-tab px-4 py-2 rounded-xl text-xs font-bold bg-slate-50 text-slate-700 border border-slate-200 hover:bg-slate-100 transition">PPK</button>
+          <button type="button" data-forsaka="dewanPenggalang" onclick="selectForsakaSub('dewanPenggalang')" class="forsaka-tab px-4 py-2 rounded-xl text-xs font-bold bg-slate-50 text-slate-700 border border-slate-200 hover:bg-slate-100 transition">Dewan Penggalang</button>
+        </div>
+      </div>
+
+      <!-- Detail Organisasi Terpilih -->
+      <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
+          <div>
+            <span class="text-xs font-bold text-brand-700 uppercase tracking-wider">Subbab Organisasi Siswa</span>
+            <h3 id="forsakaSubHeading" class="text-xl font-extrabold text-slate-900 mt-0.5">OSIS</h3>
+          </div>
+          <div class="admin-edit-slot hidden flex flex-wrap gap-2">
+            <button type="button" onclick="editCurrentForsakaField('profil')" class="px-2.5 py-1.5 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Profil</button>
+            <button type="button" onclick="editCurrentForsakaField('program')" class="px-2.5 py-1.5 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Program Kerja</button>
+            <button type="button" onclick="editCurrentForsakaField('pengurus')" class="px-2.5 py-1.5 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Pembina &amp; Pengurus</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80 space-y-2">
+            <h4 class="text-xs font-extrabold uppercase tracking-wider text-brand-800">Profil &amp; Tujuan Organisasi</h4>
+            <p id="forsakaSubProfil" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80 space-y-2">
+            <h4 class="text-xs font-extrabold uppercase tracking-wider text-brand-800">Program Kerja Unggulan</h4>
+            <p id="forsakaSubProgram" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80 space-y-2">
+            <h4 class="text-xs font-extrabold uppercase tracking-wider text-brand-800">Pembina &amp; Kepengurusan</h4>
+            <p id="forsakaSubPengurus" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: 03 SNP (STANDAR NASIONAL PENDIDIKAN) ==================== -->
+    <section id="view-snp" class="view-section hidden space-y-6">
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4">
+        <div>
+          <span class="inline-block px-3 py-1 rounded-full bg-brand-50 text-brand-800 text-xs font-bold mb-2">BAB 03</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">SNP (Standar Nasional Pendidikan)</h2>
+          <p class="text-sm text-slate-600 mt-1">Dokumentasi 8 Komponen Standar Nasional Pendidikan SMP Negeri 1 Karangmojo.</p>
+        </div>
+
+        <!-- 8 Main SNP Sub-Chapters (3.1 - 3.8) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+          <button type="button" data-snp="isi" onclick="setSnpMainTab('isi')" class="snp-main-btn subtab-active text-left p-3.5 rounded-2xl border border-slate-200 transition">
+            <span class="block text-[11px] font-extrabold uppercase opacity-80">Subbab 3.1</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Isi</span>
+          </button>
+          <button type="button" data-snp="proses" onclick="setSnpMainTab('proses')" class="snp-main-btn text-left p-3.5 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
+            <span class="block text-[11px] font-extrabold uppercase text-brand-700">Subbab 3.2</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Proses</span>
+          </button>
+          <button type="button" data-snp="skl" onclick="setSnpMainTab('skl')" class="snp-main-btn text-left p-3.5 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
+            <span class="block text-[11px] font-extrabold uppercase text-brand-700">Subbab 3.3</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Kelulusan/SKL</span>
+          </button>
+          <button type="button" data-snp="ptk" onclick="setSnpMainTab('ptk')" class="snp-main-btn text-left p-3.5 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
+            <span class="block text-[11px] font-extrabold uppercase text-brand-700">Subbab 3.4</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Tendik</span>
+          </button>
+          <button type="button" data-snp="sarpras" onclick="setSnpMainTab('sarpras')" class="snp-main-btn text-left p-3.5 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
+            <span class="block text-[11px] font-extrabold uppercase text-brand-700">Subbab 3.5</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Sarana Prasarana</span>
+          </button>
+          <button type="button" data-snp="pengelolaan" onclick="setSnpMainTab('pengelolaan')" class="snp-main-btn text-left p-3.5 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
+            <span class="block text-[11px] font-extrabold uppercase text-brand-700">Subbab 3.6</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Pengelolaan</span>
+          </button>
+          <button type="button" data-snp="pembiayaan" onclick="setSnpMainTab('pembiayaan')" class="snp-main-btn text-left p-3.5 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
+            <span class="block text-[11px] font-extrabold uppercase text-brand-700">Subbab 3.7</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Pembiayaan</span>
+          </button>
+          <button type="button" data-snp="penilaian" onclick="setSnpMainTab('penilaian')" class="snp-main-btn text-left p-3.5 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 hover:bg-slate-100 transition">
+            <span class="block text-[11px] font-extrabold uppercase text-brand-700">Subbab 3.8</span>
+            <span class="block text-xs sm:text-sm font-bold mt-0.5">Komponen Standar Penilaian</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== SUBBAB 3.1: KOMPONEN STANDAR ISI ===== -->
+      <div id="snp-pane-isi" class="snp-pane space-y-6">
+        <div class="flex flex-wrap gap-2">
+          <button type="button" data-isi="ksp" onclick="setIsiTab('ksp')" class="isi-sub-btn subtab-active px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 transition">3.1.1 Kurikulum Satuan Pendidikan</button>
+          <button type="button" data-isi="perangkat" onclick="setIsiTab('perangkat')" class="isi-sub-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">3.1.2 Perangkat Pembelajaran Guru</button>
+        </div>
+
+        <!-- 3.1.1 KSP -->
+        <div id="isi-pane-ksp" class="isi-pane bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 class="text-lg font-extrabold text-slate-900">Kurikulum Satuan Pendidikan (KSP)</h3>
+              <p class="text-xs text-slate-500">Dokumen acuan kurikulum operasional SMP Negeri 1 Karangmojo.</p>
+            </div>
+            <button type="button" onclick="openTextEditor('snp.ksp', 'Edit Kurikulum Satuan Pendidikan')" class="admin-edit-slot hidden px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Uraian KSP</button>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80">
+            <p id="out-snp-ksp" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+          </div>
+
+          <!-- Admin-Only Upload PDF KSP -->
+          <div class="admin-upload-card hidden bg-amber-50/70 rounded-2xl p-5 border border-amber-200 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <span class="px-2 py-0.5 rounded bg-amber-500 text-white text-[10px] font-bold uppercase">Khusus Admin</span>
+                <h4 class="text-sm sm:text-base font-extrabold text-slate-900 mt-1">Upload Dokumen PDF &amp; Deskripsi Kurikulum Satuan Pendidikan (KSP)</h4>
+                <p class="text-xs text-slate-600">Isi deskripsi KSP lalu pilih file PDF dari perangkat atau masukkan tautan pratinjau Google Drive.</p>
+              </div>
+              <button type="button" id="btnRemoveKspPdf" onclick="removeKspPdf()" class="hidden px-3 py-1.5 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs font-bold hover:bg-rose-100">Hapus PDF</button>
+            </div>
+            <form onsubmit="submitKspPdf(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-bold text-slate-700 mb-1">Kolom Deskripsi Kurikulum Satuan Pendidikan (KSP)</label>
+                <textarea id="inpKspDeskripsi" rows="4" placeholder="Tuliskan deskripsi, ringkasan struktur kurikulum, atau catatan tahun pelajaran KSP SMP Negeri 1 Karangmojo..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-xs sm:text-sm leading-relaxed focus:outline-none focus:border-brand-700"></textarea>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Pilih File PDF KSP</label>
+                <input type="file" id="inpKspPdfFile" accept="application/pdf,.pdf" class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-800 file:font-semibold" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Atau Tautan PDF Google Drive</label>
+                <input type="url" id="inpKspPdfLink" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-xs focus:outline-none focus:border-brand-700" />
+              </div>
+              <div class="sm:col-span-2 flex justify-end">
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">Simpan Deskripsi &amp; PDF KSP</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Tampilan Dokumen PDF KSP di Halaman -->
+          <div id="kspPdfViewerContainer" class="space-y-3 pt-2 border-t border-slate-100"></div>
+        </div>
+
+        <!-- 3.1.2 Perangkat Pembelajaran Guru -->
+        <div id="isi-pane-perangkat" class="isi-pane hidden space-y-5">
+          <!-- Admin-Only Upload Card -->
+          <div class="admin-upload-card hidden bg-amber-50/70 rounded-2xl p-6 border border-amber-200 space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="px-2 py-0.5 rounded bg-amber-500 text-white text-[10px] font-bold uppercase">Khusus Admin</span>
+                <h4 class="text-base font-extrabold text-slate-900 mt-1">Upload Perangkat Pembelajaran Guru</h4>
+              </div>
+            </div>
+            <form onsubmit="submitPerangkat(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <input type="text" id="inpPerangkatGuru" required placeholder="Nama Guru & Gelar" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:border-brand-700" />
+              <input type="text" id="inpPerangkatMapel" required placeholder="Mata Pelajaran" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:border-brand-700" />
+              <input type="text" id="inpPerangkatKelas" required placeholder="Kelas / Semester (misal: VII / Ganjil)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:border-brand-700" />
+              <input type="text" id="inpPerangkatJenis" required placeholder="Jenis Perangkat (Modul Ajar / ATP / Prota)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:border-brand-700" />
+              <input type="url" id="inpPerangkatLink" placeholder="Tautan Google Drive / Dokumen (Opsional)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:border-brand-700" />
+              <input type="file" id="inpPerangkatFile" class="px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-800 file:font-semibold" />
+              <div class="sm:col-span-2 lg:col-span-3 flex justify-end">
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">Simpan Perangkat Pembelajaran</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Table Display -->
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h3 class="text-lg font-extrabold text-slate-900">Daftar Perangkat Pembelajaran Guru</h3>
+                <p class="text-xs text-slate-500">Rekap perangkat pembelajaran masing-masing guru mata pelajaran.</p>
+              </div>
+              <span id="badgeCountPerangkat" class="px-3 py-1 rounded-full bg-brand-50 text-brand-800 text-xs font-bold">0 Dokumen</span>
+            </div>
+            <div class="overflow-x-auto rounded-xl border border-slate-200">
+              <table class="min-w-full divide-y divide-slate-200 text-xs sm:text-sm">
+                <thead class="bg-slate-100 text-slate-700 font-bold">
+                  <tr>
+                    <th class="px-4 py-3 text-left">No</th>
+                    <th class="px-4 py-3 text-left">Mata Pelajaran</th>
+                    <th class="px-4 py-3 text-left">Kelas</th>
+                    <th class="px-4 py-3 text-left">Judul Buku Paket</th>
+                    <th class="px-4 py-3 text-left">Penerbit / Tahun</th>
+                    <th class="px-4 py-3 text-left">Guru Pengampu</th>
+                    <th class="admin-col-header hidden px-4 py-3 text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyBuku" class="divide-y divide-slate-100 bg-white"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SUBBAB 3.3: KOMPONEN STANDAR KELULUSAN / SKL ===== -->
+      <div id="snp-pane-skl" class="snp-pane hidden space-y-5">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-extrabold text-brand-700 uppercase">Subbab 3.3</span>
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Komponen Standar Kelulusan / SKL</h3>
+              <p class="text-xs text-slate-500">Kriteria kualifikasi kemampuan lulusan yang mencakup sikap, pengetahuan, dan keterampilan peserta didik.</p>
+            </div>
+            <button type="button" onclick="openTextEditor('snp.skl', 'Edit Komponen Standar Kelulusan / SKL')" class="admin-edit-slot hidden px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Uraian</button>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80">
+            <p id="out-snp-skl" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+          </div>
+        </div>
+        <div id="extra-docs-skl"></div>
+      </div>
+
+      <!-- ===== SUBBAB 3.4: KOMPONEN STANDAR TENDIK ===== -->
+      <div id="snp-pane-ptk" class="snp-pane hidden space-y-6">
+        <div class="flex flex-wrap gap-2">
+          <button type="button" data-ptk="kepsek" onclick="setPtkTab('kepsek')" class="ptk-sub-btn subtab-active px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 transition">3.4.1 Data Kepala Sekolah</button>
+          <button type="button" data-ptk="pendidik" onclick="setPtkTab('pendidik')" class="ptk-sub-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">3.4.2 Data Pendidik</button>
+          <button type="button" data-ptk="tendik" onclick="setPtkTab('tendik')" class="ptk-sub-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">3.4.3 Data Tenaga Kependidikan</button>
+          <button type="button" data-ptk="prosentase" onclick="setPtkTab('prosentase')" class="ptk-sub-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">3.4.4 Data Prosentase PTK</button>
+        </div>
+
+        <!-- 3.4.1 Data Kepala Sekolah -->
+        <div id="ptk-pane-kepsek" class="ptk-pane space-y-5">
+          <!-- Admin-Only Form -->
+          <div class="admin-upload-card hidden bg-amber-50/70 rounded-2xl p-6 border border-amber-200 space-y-4">
+            <div>
+              <span class="px-2 py-0.5 rounded bg-amber-500 text-white text-[10px] font-bold uppercase">Khusus Admin</span>
+              <h4 class="text-base font-extrabold text-slate-900 mt-1">Perbarui Data Kepala Sekolah</h4>
+            </div>
+            <form onsubmit="submitKepsek(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <input type="text" id="inpKepsekNama" required placeholder="Nama Lengkap & Gelar" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+              <input type="text" id="inpKepsekNip" required placeholder="NIP" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+              <input type="text" id="inpKepsekPangkat" required placeholder="Pangkat / Golongan" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+              <select id="inpKepsekPendidikan" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm">
+                <option value="S2">Pendidikan Terakhir: S2</option>
+                <option value="S1">Pendidikan Terakhir: S1</option>
+                <option value="S3">Pendidikan Terakhir: S3</option>
+              </select>
+              <input type="text" id="inpKepsekPeriode" required placeholder="Periode Menjabat (misal: 2023 - Sekarang)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+              <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">Simpan Data Kepala Sekolah</button>
+            </form>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200">
+            <h3 class="text-lg font-extrabold text-slate-900 mb-4">Profil Kepala Sekolah</h3>
+            <div id="kepsekCardContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+          </div>
+        </div>
+
+        <!-- 3.4.2 Data Pendidik (dengan tautan Google Drive Ijazah, Serdik, SK PNS/PPPK, SK Terakhir) -->
+        <div id="ptk-pane-pendidik" class="ptk-pane hidden space-y-5">
+          <!-- Admin-Only Form -->
+          <div class="admin-upload-card hidden bg-amber-50/70 rounded-2xl p-6 border border-amber-200 space-y-4">
+            <div>
+              <span class="px-2 py-0.5 rounded bg-amber-500 text-white text-[10px] font-bold uppercase">Khusus Admin</span>
+              <h4 class="text-base font-extrabold text-slate-900 mt-1">Input Data &amp; Tautan Berkas Google Drive Pendidik (Guru)</h4>
+              <p class="text-xs text-slate-600">Unggah berkas ke Google Drive terlebih dahulu (atur akses ke <strong>Siapa saja yang memiliki link dapat melihat</strong>), lalu tempelkan tautan Google Drive masing-masing berkas di bawah ini.</p>
+            </div>
+            <form onsubmit="submitPendidik(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <input type="text" id="inpGuruNama" required placeholder="Nama Lengkap & Gelar" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+                <input type="text" id="inpGuruNip" required placeholder="NIP / NUPTK" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+                <input type="text" id="inpGuruMapel" required placeholder="Mengajar Mata Pelajaran" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+                <select id="inpGuruPendidikan" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm">
+                  <option value="S1">Pendidikan Terakhir: S1</option>
+                  <option value="S2">Pendidikan Terakhir: S2</option>
+                  <option value="S3">Pendidikan Terakhir: S3</option>
+                </select>
+                <select id="inpGuruSertifikasi" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm">
+                  <option value="Sudah">Status Sertifikasi: Sudah Sertifikasi</option>
+                  <option value="Belum">Status Sertifikasi: Belum Sertifikasi</option>
+                </select>
+                <input type="text" id="inpGuruPurna" placeholder="Tahun Purna Tugas (misal: 2048)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+              </div>
+
+              <!-- 4 Tautan Google Drive Berkas Kepegawaian Pendidik -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-amber-200/80">
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">1. Link Google Drive Ijazah Terakhir</label>
+                  <input type="url" id="linkGuruIjazah" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">2. Link Google Drive Sertifikat Pendidik</label>
+                  <input type="url" id="linkGuruSerdik" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">3. Link Google Drive SK PNS / PPPK</label>
+                  <input type="url" id="linkGuruSkAwal" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">4. Link Google Drive SK Terakhir PNS / PPPK</label>
+                  <input type="url" id="linkGuruSkAkhir" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
+                </div>
+              </div>
+
+              <div class="flex justify-end">
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">Simpan Data Pendidik</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Table Display -->
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h3 class="text-lg font-extrabold text-slate-900">Rekap Data Pendidik (Guru)</h3>
+                <p class="text-xs text-slate-500">Daftar pendidik aktif beserta status kualifikasi, sertifikasi, dan kelengkapan berkas kepegawaian.</p>
+              </div>
+              <span id="badgeCountPendidik" class="px-3 py-1 rounded-full bg-brand-50 text-brand-800 text-xs font-bold">0 Pendidik</span>
+            </div>
+            <div class="overflow-x-auto rounded-xl border border-slate-200">
+              <table class="min-w-full divide-y divide-slate-200 text-xs">
+                <thead class="bg-slate-100 text-slate-700 font-bold">
+                  <tr>
+                    <th class="px-3 py-3 text-left">No</th>
+                    <th class="px-3 py-3 text-left">Nama Pendidik</th>
+                    <th class="px-3 py-3 text-left">NIP</th>
+                    <th class="px-3 py-3 text-left">Mapel</th>
+                    <th class="px-3 py-3 text-center">Ijazah</th>
+                    <th class="px-3 py-3 text-center">Sertifikasi</th>
+                    <th class="px-3 py-3 text-left">Kelengkapan Berkas</th>
+                    <th class="admin-col-header hidden px-3 py-3 text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyPendidik" class="divide-y divide-slate-100 bg-white"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3.4.3 Data Tenaga Kependidikan (dengan tautan Google Drive Ijazah, Sertifikat, SK PNS/PPPK, SK Terakhir) -->
+        <div id="ptk-pane-tendik" class="ptk-pane hidden space-y-5">
+          <!-- Admin-Only Form -->
+          <div class="admin-upload-card hidden bg-amber-50/70 rounded-2xl p-6 border border-amber-200 space-y-4">
+            <div>
+              <span class="px-2 py-0.5 rounded bg-amber-500 text-white text-[10px] font-bold uppercase">Khusus Admin</span>
+              <h4 class="text-base font-extrabold text-slate-900 mt-1">Input Data &amp; Tautan Berkas Google Drive Tenaga Kependidikan</h4>
+              <p class="text-xs text-slate-600">Unggah berkas ke Google Drive terlebih dahulu (atur akses ke <strong>Siapa saja yang memiliki link dapat melihat</strong>), lalu tempelkan tautan Google Drive masing-masing berkas di bawah ini.</p>
+            </div>
+            <form onsubmit="submitTendik(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <input type="text" id="inpTendikNama" required placeholder="Nama Lengkap" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+                <input type="text" id="inpTendikNip" placeholder="NIP / NI PPPK / NUPTK" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+                <input type="text" id="inpTendikJabatan" required placeholder="Jabatan / Unit Tugas (misal: Staf TU)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+                <select id="inpTendikPendidikan" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm">
+                  <option value="SMA / SMK">Pendidikan Terakhir: SMA / SMK</option>
+                  <option value="D2">Pendidikan Terakhir: D2</option>
+                  <option value="D3">Pendidikan Terakhir: D3</option>
+                  <option value="D4">Pendidikan Terakhir: D4</option>
+                  <option value="S1">Pendidikan Terakhir: S1</option>
+                </select>
+                <input type="text" id="inpTendikPurna" placeholder="Tahun Purna Tugas (misal: 2059)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+              </div>
+
+              <!-- 4 Tautan Google Drive Berkas Kepegawaian Tendik -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-amber-200/80">
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">1. Link Google Drive Ijazah Terakhir</label>
+                  <input type="url" id="linkTendikIjazah" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">2. Link Google Drive Sertifikat Pendidik / Kompetensi</label>
+                  <input type="url" id="linkTendikSerdik" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">3. Link Google Drive SK PNS / PPPK</label>
+                  <input type="url" id="linkTendikSkAwal" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-800">4. Link Google Drive SK Terakhir PNS / PPPK</label>
+                  <input type="url" id="linkTendikSkAkhir" placeholder="https://drive.google.com/file/d/.../view" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-brand-700" />
+                </div>
+              </div>
+
+              <div class="flex justify-end">
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">Simpan Data Tenaga Kependidikan</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Table Display -->
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h3 class="text-lg font-extrabold text-slate-900">Rekap Data Tenaga Kependidikan</h3>
+                <p class="text-xs text-slate-500">Daftar staf tata usaha dan tenaga kependidikan beserta kelengkapan berkas.</p>
+              </div>
+              <span id="badgeCountTendik" class="px-3 py-1 rounded-full bg-brand-50 text-brand-800 text-xs font-bold">0 Tendik</span>
+            </div>
+            <div class="overflow-x-auto rounded-xl border border-slate-200">
+              <table class="min-w-full divide-y divide-slate-200 text-xs">
+                <thead class="bg-slate-100 text-slate-700 font-bold">
+                  <tr>
+                    <th class="px-3 py-3 text-left">No</th>
+                    <th class="px-3 py-3 text-left">Nama</th>
+                    <th class="px-3 py-3 text-left">NIP</th>
+                    <th class="px-3 py-3 text-left">Jabatan</th>
+                    <th class="px-3 py-3 text-center">Ijazah</th>
+                    <th class="px-3 py-3 text-left">Kelengkapan Berkas</th>
+                    <th class="admin-col-header hidden px-3 py-3 text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyTendik" class="divide-y divide-slate-100 bg-white"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3.4.4 Data Prosentase PTK (1 Halaman Terpadu) -->
+        <div id="ptk-pane-prosentase" class="ptk-pane hidden space-y-6">
+          <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-6">
+            <div>
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Rekapitulasi &amp; Data Prosentase Pendidik dan Tenaga Kependidikan</h3>
+              <p class="text-xs sm:text-sm text-slate-500 mt-1">Persentase dihitung otomatis dari Data Pendidik dan Data Tenaga Kependidikan yang tersimpan.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <!-- Indikator 1: Pendidikan Pendidik S1 / S2 -->
+              <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-4">
+                <h4 class="text-sm font-extrabold text-brand-900">1. Prosentase Pendidikan Pendidik (S1 / S2)</h4>
+                <div id="chartPendidikEdu" class="space-y-3"></div>
+                <div id="tablePendidikEdu" class="pt-2 border-t border-slate-200 text-xs space-y-1.5"></div>
+              </div>
+
+              <!-- Indikator 2: Sertifikasi Pendidik -->
+              <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-4">
+                <h4 class="text-sm font-extrabold text-brand-900">2. Prosentase Sertifikasi Pendidik</h4>
+                <div id="chartPendidikSert" class="space-y-3"></div>
+                <div id="tablePendidikSert" class="pt-2 border-t border-slate-200 text-xs space-y-1.5"></div>
+              </div>
+
+              <!-- Indikator 3: Pendidikan Tendik SMA/D2/D3/D4/S1 -->
+              <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-4">
+                <h4 class="text-sm font-extrabold text-brand-900">3. Prosentase Pendidikan Tendik (SMA/D2/D3/D4/S1)</h4>
+                <div id="chartTendikEdu" class="space-y-3"></div>
+                <div id="tableTendikEdu" class="pt-2 border-t border-slate-200 text-xs space-y-1.5"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SUBBAB 3.5: KOMPONEN STANDAR SARANA PRASARANA ===== -->
+      <div id="snp-pane-sarpras" class="snp-pane hidden space-y-5">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-extrabold text-brand-700 uppercase">Subbab 3.5</span>
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Komponen Standar Sarana Prasarana</h3>
+              <p class="text-xs text-slate-500">Data inventarisasi lahan, bangunan ruang belajar, laboratorium, perpustakaan, serta fasilitas penunjang sekolah.</p>
+            </div>
+            <button type="button" onclick="openTextEditor('snp.sarpras', 'Edit Komponen Standar Sarana Prasarana')" class="admin-edit-slot hidden px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Uraian</button>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80">
+            <p id="out-snp-sarpras" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+          </div>
+        </div>
+        <div id="extra-docs-sarpras"></div>
+      </div>
+
+      <!-- ===== SUBBAB 3.6: KOMPONEN STANDAR PENGELOLAAN ===== -->
+      <div id="snp-pane-pengelolaan" class="snp-pane hidden space-y-5">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-extrabold text-brand-700 uppercase">Subbab 3.6</span>
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Komponen Standar Pengelolaan</h3>
+              <p class="text-xs text-slate-500">Perencanaan program kerja sekolah (RKS/RKJM), pelaksanaan rencana kerja, pengawasan, serta sistem informasi manajemen.</p>
+            </div>
+            <button type="button" onclick="openTextEditor('snp.pengelolaan', 'Edit Komponen Standar Pengelolaan')" class="admin-edit-slot hidden px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Uraian</button>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80">
+            <p id="out-snp-pengelolaan" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+          </div>
+        </div>
+        <div id="extra-docs-pengelolaan"></div>
+      </div>
+
+      <!-- ===== SUBBAB 3.7: KOMPONEN STANDAR PEMBIAYAAN ===== -->
+      <div id="snp-pane-pembiayaan" class="snp-pane hidden space-y-5">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-extrabold text-brand-700 uppercase">Subbab 3.7</span>
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Komponen Standar Pembiayaan</h3>
+              <p class="text-xs text-slate-500">Pengelolaan anggaran operasional sekolah (RKAS), transparansi penggunaan dana BOS, dan pelaporan keuangan.</p>
+            </div>
+            <button type="button" onclick="openTextEditor('snp.pembiayaan', 'Edit Komponen Standar Pembiayaan')" class="admin-edit-slot hidden px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Uraian</button>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80">
+            <p id="out-snp-pembiayaan" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+          </div>
+        </div>
+        <div id="extra-docs-pembiayaan"></div>
+      </div>
+
+      <!-- ===== SUBBAB 3.8: KOMPONEN STANDAR PENILAIAN ===== -->
+      <div id="snp-pane-penilaian" class="snp-pane hidden space-y-5">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-extrabold text-brand-700 uppercase">Subbab 3.8</span>
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Komponen Standar Penilaian</h3>
+              <p class="text-xs text-slate-500">Mekanisme asesmen formatif, asesmen sumatif, kriteria ketercapaian tujuan pembelajaran, dan pelaporan hasil belajar.</p>
+            </div>
+            <button type="button" onclick="openTextEditor('snp.penilaian', 'Edit Komponen Standar Penilaian')" class="admin-edit-slot hidden px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Uraian</button>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80">
+            <p id="out-snp-penilaian" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+          </div>
+        </div>
+        <div id="extra-docs-penilaian"></div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: 04 SERBA SERBI ==================== -->
+    <section id="view-serbaserbi" class="view-section hidden space-y-6">
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="inline-block px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold mb-2">BAB 04</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Serba Serbi SMP Negeri 1 Karangmojo</h2>
+          </div>
+          <button type="button" onclick="openTextEditor('serbaSerbi.pengantar', 'Edit Pengantar Serba Serbi')" class="admin-edit-slot hidden px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit Pengantar</button>
+        </div>
+        <p id="out-serbaSerbi-pengantar" class="text-sm text-slate-600 leading-relaxed"></p>
+      </div>
+
+      <!-- Admin-Only Add Serba Serbi Post -->
+      <div class="admin-upload-card hidden bg-amber-50/70 rounded-2xl p-6 border border-amber-200 space-y-4">
+        <h3 class="text-base font-extrabold text-slate-900">Tambah Artikel / Dokumentasi Serba Serbi</h3>
+        <form onsubmit="submitSerbaSerbi(event)" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <input type="text" id="inpSsJudul" required placeholder="Judul Kegiatan / Kabar Sekolah" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+          <input type="text" id="inpSsTag" required placeholder="Kategori (Prestasi / Literasi / Agenda)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+          <input type="text" id="inpSsWaktu" required placeholder="Waktu / Tahun Pelajaran" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+          <textarea id="inpSsIsi" required rows="3" placeholder="Tuliskan uraian kegiatan atau informasi..." class="sm:col-span-3 px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm"></textarea>
+          <div class="sm:col-span-3 flex justify-end">
+            <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">Terbitkan ke Serba Serbi</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="serbaSerbiGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    </section>
+
+    <!-- ==================== VIEW: 05 TENTANG KAMI ==================== -->
+    <section id="view-tentang" class="view-section hidden space-y-6">
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+        <span class="inline-block px-3 py-1 rounded-full bg-purple-50 text-purple-800 text-xs font-bold mb-2">BAB 05</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Tentang Kami</h2>
+        <p class="text-sm text-slate-600 mt-1">Informasi pengelola website dan kontak resmi SMP Negeri 1 Karangmojo.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-base font-bold text-brand-900">Tentang Portal Web Sekolah</h3>
+            <button type="button" onclick="openTextEditor('tentangKami.umum', 'Edit Tentang Portal Web Sekolah')" class="admin-edit-slot hidden px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit</button>
+          </div>
+          <p id="out-tentangKami-umum" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-base font-bold text-brand-900">Alamat &amp; Kontak Sekolah</h3>
+            <button type="button" onclick="openTextEditor('tentangKami.kontak', 'Edit Alamat & Kontak Sekolah')" class="admin-edit-slot hidden px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200">Edit</button>
+          </div>
+          <p id="out-tentangKami-kontak" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+      <p class="font-semibold text-slate-700">&copy; SMP Negeri 1 Karangmojo — Karangmojo, Gunungkidul, Daerah Istimewa Yogyakarta</p>
+      <p>Portal Informasi Sekolah &bull; Standar Nasional Pendidikan (SNP)</p>
+    </div>
+  </footer>
+
+  <!-- ==================== MODAL: ADMIN LOGIN ==================== -->
+  <div id="modalAdminLogin" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-extrabold text-slate-900">Login Admin Sekolah</h3>
+        <button type="button" onclick="closeModalById('modalAdminLogin')" class="p-1.5 rounded-xl text-slate-400 hover:bg-slate-100 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        Masukkan PIN Admin untuk mengaktifkan pengelolaan konten website dan pengunggahan data pada Bab 03 SNP.
+      </p>
+      <form onsubmit="handleAdminLoginSubmit(event)" class="space-y-4">
+        <div>
+          <label for="adminPinInput" class="block text-xs font-bold text-slate-700 mb-1.5">PIN Admin (Bawaan: <code class="px-1.5 py-0.5 rounded bg-slate-100 text-brand-800">admin123</code>)</label>
+          <input type="password" id="adminPinInput" required placeholder="Masukkan PIN Admin..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-brand-700" />
+        </div>
+        <div class="flex items-center justify-end gap-2">
+          <button type="button" onclick="closeModalById('modalAdminLogin')" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">Batal</button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">Masuk sebagai Admin</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: ADMIN CONTROL PANEL ==================== -->
+  <div id="modalAdminPanel" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-200 space-y-5">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-[11px] font-bold uppercase text-emerald-700">Panel Kendali Administrator</span>
+          <h3 class="text-lg font-extrabold text-slate-900">Kelola Website SMPN 1 Karangmojo</h3>
+        </div>
+        <button type="button" onclick="closeModalById('modalAdminPanel')" class="p-1.5 rounded-xl text-slate-400 hover:bg-slate-100 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="space-y-3">
+        <!-- Toggle Edit Mode -->
+        <div class="flex items-center justify-between p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          <div>
+            <h4 class="text-sm font-bold text-slate-900">Mode Edit Teks Halaman</h4>
+            <p class="text-xs text-slate-500">Tampilkan tombol edit pada profil, FORSAKA, KSP, dan Tentang Kami.</p>
+          </div>
+          <button type="button" id="btnToggleEditModeModal" onclick="toggleContentEditMode()" class="px-4 py-2 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">
+            Aktifkan
+          </button>
+        </div>
+
+        <!-- Change Admin PIN -->
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+          <h4 class="text-sm font-bold text-slate-900">Ubah PIN Admin</h4>
+          <div class="flex gap-2">
+            <input type="password" id="newAdminPinInput" placeholder="PIN baru (minimal 4 karakter)" class="flex-1 px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs" />
+            <button type="button" onclick="updateAdminPin()" class="px-4 py-2 rounded-xl bg-slate-800 text-white text-xs font-bold hover:bg-slate-900">Simpan PIN</button>
+          </div>
+        </div>
+
+        <!-- Backup & Restore JSON -->
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+          <h4 class="text-sm font-bold text-slate-900">Cadangkan &amp; Pulihkan Data Website (JSON)</h4>
+          <p class="text-xs text-slate-500">Unduh cadangan seluruh konten dan data SNP atau muat kembali dari berkas cadangan.</p>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" onclick="exportPortalJson()" class="px-3.5 py-2 rounded-xl bg-emerald-700 text-white text-xs font-bold hover:bg-emerald-800">Unduh Cadangan JSON</button>
+            <label class="cursor-pointer px-3.5 py-2 rounded-xl bg-white border border-slate-300 text-slate-700 text-xs font-bold hover:bg-slate-100">
+              <span>Impor JSON</span>
+              <input type="file" accept=".json" onchange="importPortalJson(event)" class="hidden" />
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: GENERIC TEXT EDITOR ==================== -->
+  <div id="modalTextEditor" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 id="textEditorTitle" class="text-lg font-extrabold text-slate-900">Edit Konten</h3>
+        <button type="button" onclick="closeModalById('modalTextEditor')" class="p-1.5 rounded-xl text-slate-400 hover:bg-slate-100 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <textarea id="textEditorArea" rows="7" class="w-full px-4 py-3 rounded-2xl border border-slate-300 text-sm leading-relaxed focus:outline-none focus:border-brand-700"></textarea>
+      <div class="flex justify-end gap-2">
+        <button type="button" onclick="closeModalById('modalTextEditor')" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">Batal</button>
+        <button type="button" onclick="saveTextEditor()" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">Simpan Perubahan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toastBox" class="hidden fixed bottom-5 right-5 z-50 max-w-sm px-4 py-3 rounded-2xl shadow-lg text-xs font-bold text-white bg-slate-900 transition-all"></div>
+
+  <!-- ==================== MODAL: DOCUMENT / PHOTO VIEWER ==================== -->
+  <div id="modalDocViewer" class="hidden fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-3xl w-full p-5 sm:p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-[11px] font-bold uppercase text-brand-700">Pratinjau Berkas Kepegawaian</span>
+          <h3 id="docViewerTitle" class="text-base sm:text-lg font-extrabold text-slate-900">Dokumen</h3>
+        </div>
+        <button type="button" onclick="closeModalById('modalDocViewer')" class="p-1.5 rounded-xl text-slate-400 hover:bg-slate-100 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="docViewerBody" class="bg-slate-50 rounded-2xl border border-slate-200 p-4 max-h-[70vh] overflow-auto flex flex-col items-center justify-center text-center"></div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: DETAIL PROFIL PENDIDIK / TENDIK ==================== -->
+  <div id="modalPtkDetail" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 space-y-5 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-start justify-between gap-3 border-b border-slate-100 pb-4">
+        <div>
+          <span id="ptkDetailRoleBadge" class="inline-block px-2.5 py-0.5 rounded-full bg-brand-50 text-brand-800 text-[11px] font-extrabold uppercase">Detail PTK</span>
+          <h3 id="ptkDetailName" class="text-lg sm:text-xl font-extrabold text-slate-900 mt-1">Nama Lengkap</h3>
+          <p id="ptkDetailSub" class="text-xs text-slate-500 mt-0.5">NIP &bull; Jabatan / Mapel</p>
+        </div>
+        <button type="button" onclick="closeModalById('modalPtkDetail')" class="p-1.5 rounded-xl text-slate-400 hover:bg-slate-100 hover:text-slate-700 shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Biodata Lengkap -->
+      <div id="ptkDetailBioGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+
+      <!-- Kelengkapan Berkas yang Diupload -->
+      <div class="space-y-3 pt-2 border-t border-slate-100">
+        <div>
+          <h4 class="text-sm font-extrabold text-slate-900">Kelengkapan Berkas Kepegawaian</h4>
+          <p class="text-xs text-slate-500">Klik tombol pada masing-masing berkas di bawah untuk melihat foto atau dokumen yang telah diunggah.</p>
+        </div>
+        <div id="ptkDetailDocsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+      </div>
+
+      <!-- Inline Preview Area inside Detail Modal -->
+      <div id="ptkDetailInlinePreview" class="hidden space-y-2 pt-3 border-t border-slate-100">
+        <div class="flex items-center justify-between">
+          <span id="ptkDetailPreviewLabel" class="text-xs font-extrabold text-brand-900">Pratinjau Berkas</span>
+          <button type="button" onclick="document.getElementById('ptkDetailInlinePreview').classList.add('hidden')" class="text-xs font-semibold text-slate-500 hover:text-slate-800">Tutup Pratinjau</button>
+        </div>
+        <div id="ptkDetailPreviewContent" class="bg-slate-50 rounded-2xl border border-slate-200 p-3 flex flex-col items-center justify-center"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==================== STATE & STORAGE ====================
+    const STORAGE_KEY = 'smpn1_karangmojo_portal_v2';
+    const PIN_STORAGE_KEY = 'smpn1_karangmojo_admin_pin_v2';
+    const DEFAULT_ADMIN_PIN = 'admin123';
+
+    const INITIAL_DATA = {
+      hero: {
+        subtitle: 'Mewujudkan peserta didik yang berkarakter, berprestasi, berbudaya, dan berwawasan lingkungan melalui layanan pendidikan yang transparan dan terintegrasi.'
+      },
+      profil: {
+        identitas: 'Nama Sekolah: SMP Negeri 1 Karangmojo\nAlamat: Kecamatan Karangmojo, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta\nStatus: Sekolah Negeri\n\nSMP Negeri 1 Karangmojo merupakan salah satu sekolah menengah pertama rujukan di wilayah Karangmojo yang berkomitmen memberikan layanan pendidikan bermutu dan berkarakter.',
+        visiMisi: 'VISI:\nTerwujudnya peserta didik yang beriman dan bertakwa, berakhlak mulia, cerdas, terampil, berbudaya, dan berwawasan lingkungan.\n\nMISI:\n1. Menumbuhkan penghayatan dan pengamalan ajaran agama serta budi pekerti luhur.\n2. Melaksanakan pembelajaran aktif, kreatif, efektif, dan menyenangkan.\n3. Mengembangkan potensi akademik dan nonakademik peserta didik.\n4. Mewujudkan lingkungan sekolah yang bersih, sehat, hijau, dan nyaman.',
+        sarpras: '• Ruang kelas representatif dan nyaman\n• Laboratorium IPA dan Laboratorium Komputer\n• Perpustakaan sekolah\n• Mushola / tempat ibadah\n• Lapangan olahraga dan ruang kesenian\n• Ruang UKS, ruang BK, dan kantin sehat',
+        budaya: '• Pembiasaan literasi pagi dan penguatan karakter Profil Pelajar Pancasila\n• Kedisiplinan, budaya senyum-sapa-salam, serta kepedulian lingkungan sekolah\n• Kolaborasi aktif antara sekolah, komite, orang tua, dan masyarakat'
+      },
+      forsaka: {
+        pengantar: 'FORSAKA (Forum Organisasi Sekolah) merupakan wadah pembinaan kepemimpinan, kreativitas, keagamaan, kepedulian, dan kepramukaan peserta didik SMP Negeri 1 Karangmojo.',
+        subs: {
+          osis: {
+            label: 'OSIS (Organisasi Siswa Intra Sekolah)',
+            profil: 'Organisasi induk kesiswaan yang melatih kepemimpinan, tanggung jawab, dan partisipasi aktif siswa dalam berbagai program sekolah.',
+            program: '• Masa Pengenalan Lingkungan Sekolah (MPLS)\n• Peringatan Hari Besar Nasional dan Sekolah\n• Classmeeting dan Lomba Kreativitas Siswa',
+            pengurus: 'Pembina: Tim Kesiswaan SMPN 1 Karangmojo\nPengurus: Ketua, Wakil Ketua, Sekretaris, Bendahara, dan Seksi Bidang.'
+          },
+          rohis: {
+            label: 'ROHIS (Kerohanian Islam)',
+            profil: 'Organisasi siswa yang berfokus pada pembinaan keimanan, ketakwaan, akhlak mulia, dan syiar Islam di lingkungan sekolah.',
+            program: '• Tadarus dan kajian keislaman rutin\n• Peringatan Hari Besar Islam (PHBI)\n• Kegiatan bakti sosial dan pesantren kilat Ramadhan',
+            pengurus: 'Pembina: Guru Pendidikan Agama Islam\nPengurus: Ketua ROHIS dan koordinator bidang dakwah & ibadah.'
+          },
+          persiska: {
+            label: 'PERSISKA (Persatuan Siswa Kristen / Katolik)',
+            profil: 'Wadah pembinaan rohani, kebersamaan, dan pengembangan karakter kasih bagi peserta didik Kristiani SMP Negeri 1 Karangmojo.',
+            program: '• Persekutuan doa dan pendalaman Alkitab\n• Perayaan Paskah dan Natal bersama\n• Kegiatan pelayanan sosial dan paduan suara',
+            pengurus: 'Pembina: Guru Pendidikan Agama Kristen / Katolik\nPengurus: Koordinator siswa PERSISKA.'
+          },
+          ppk: {
+            label: 'PPK (Penguatan Pendidikan Karakter / Kader Sekolah)',
+            profil: 'Organisasi kader siswa yang mendukung penegakan tata tertib, budaya positif, anti-perundungan, dan keteladanan karakter di sekolah.',
+            program: '• Kampanye sekolah ramah anak dan anti-bullying\n• Duta kedisiplinan dan ketertiban siswa\n• Edukasi kesehatan remaja dan karakter kebangsaan',
+            pengurus: 'Pembina: Tim BK dan Kesiswaan\nPengurus: Kader PPK perwakilan tiap jenjang kelas.'
+          },
+          dewanPenggalang: {
+            label: 'Dewan Penggalang (Gerakan Pramuka)',
+            profil: 'Wadah kepemimpinan Pramuka Penggalang Gugus Depan SMP Negeri 1 Karangmojo untuk membentuk kemandirian, keterampilan, dan cinta tanah air.',
+            program: '• Latihan rutin kepramukaan mingguan\n• Perkemahan Jumat-Sabtu (Perjusa) & Jelajah Alam\n• Persiapan Lomba Tingkat (LT) dan bakti masyarakat',
+            pengurus: 'Pembina: Pembina Gugus Depan SMPN 1 Karangmojo\nPengurus: Pratama Putra, Pratama Putri, dan Dewan Kerja Penggalang.'
+          }
+        }
+      },
+      snp: {
+        ksp: 'Kurikulum Satuan Pendidikan (KSP) SMP Negeri 1 Karangmojo disusun berdasarkan kerangka Kurikulum Merdeka yang disesuaikan dengan karakteristik peserta didik, potensi daerah Kabupaten Gunungkidul, serta visi dan misi sekolah.\n\nStruktur pembelajaran mencakup kegiatan intrakurikuler, kokurikuler (Projek Penguatan Profil Pelajar Pancasila), serta ekstrakurikuler pengembangan bakat dan minat.',
+        kspPdf: '',
+        kspPdfName: '',
+        alokasiWaktu: '• Alokasi waktu 1 jam pelajaran tatap muka = 40 menit.\n• Beban belajar disesuaikan dengan struktur kurikulum kelas VII, VIII, dan IX per minggu.\n• Pelaksanaan pembelajaran terbagi dalam Semester Ganjil dan Semester Genap sesuai kalender pendidikan Dinas Pendidikan Kabupaten Gunungkidul.',
+        skl: 'Standar Kompetensi Lulusan (SKL) SMP Negeri 1 Karangmojo berfokus pada pencapaian karakter Profil Pelajar Pancasila, penguasaan literasi dan numerasi, serta kesiapan peserta didik melanjutkan pendidikan ke jenjang menengah atas/kejuruan.',
+        sarpras: 'Standar Sarana dan Prasarana mencakup ketersediaan ruang kelas, laboratorium IPA dan komputer, perpustakaan, ruang layanan BK/UKS, fasilitas olahraga, serta sarana pembelajaran berbasis TIK yang terpelihara secara berkala.',
+        pengelolaan: 'Standar Pengelolaan meliputi penyusunan Rencana Kerja Jangka Menengah (RKJM), Rencana Kerja Tahunan (RKT), supervisi akademik kepala sekolah, serta kemitraan dengan komite sekolah dan masyarakat.',
+        pembiayaan: 'Standar Pembiayaan mengatur perencanaan, pelaksanaan, dan pelaporan Rencana Kegiatan dan Anggaran Sekolah (RKAS) secara akuntabel dan transparan sesuai ketentuan pengelolaan dana pendidikan.',
+        penilaian: 'Standar Penilaian Pendidikan meliputi pelaksanaan asesmen diagnostik, formatif, sumatif lingkup materi, sumatif akhir semester, serta pengolahan nilai rapor peserta didik.',
+        extraDocs: {
+          skl: [],
+          sarpras: [],
+          pengelolaan: [],
+          pembiayaan: [],
+          penilaian: []
+        },
+        perangkat: [
+          {
+            id: 'prk-1',
+            guru: 'Aris Yuliyanto, S.Pd.I',
+            mapel: 'Pendidikan Agama Islam',
+            kelas: 'VII / Ganjil',
+            jenis: 'Modul Ajar & ATP',
+            dokumen: ''
+          }
+        ],
+        bukuPaket: [
+          {
+            id: 'bk-1',
+            mapel: 'Matematika',
+            kelas: 'VII',
+            judul: 'Matematika untuk SMP/MTs Kelas VII',
+            penerbit: 'Kemendikbudristek (2022)',
+            guru: 'Teguh Arifianto, S.Pd'
+          }
+        ],
+        kepsek: {
+          nama: 'Kepala SMP Negeri 1 Karangmojo',
+          nip: '-',
+          pangkat: 'Pembina Tingkat I / IV.b',
+          pendidikan: 'S2',
+          periode: 'Periode Berjalan'
+        },
+        pendidik: [
+          {
+            id: 'gr-1',
+            nama: 'Akhmad Shatiri, S.Pd',
+            nip: '199507012024211004',
+            mapel: 'IPS',
+            pendidikan: 'S2',
+            sertifikasi: 'Sudah',
+            purna: '2055',
+            berkas: { ijazah: 'Terlampir', serdik: 'Terlampir', skAwal: 'Terlampir', skAkhir: 'Terlampir' }
+          },
+          {
+            id: 'gr-2',
+            nama: 'Aris Yuliyanto, S.Pd.I',
+            nip: '198611232015021001',
+            mapel: 'Agama Islam',
+            pendidikan: 'S1',
+            sertifikasi: 'Sudah',
+            purna: '2046',
+            berkas: { ijazah: 'Terlampir', serdik: 'Terlampir', skAwal: 'Terlampir', skAkhir: 'Terlampir' }
+          },
+          {
+            id: 'gr-3',
+            nama: 'Teguh Arifianto, S.Pd',
+            nip: '198701052024211007',
+            mapel: 'Matematika',
+            pendidikan: 'S1',
+            sertifikasi: 'Sudah',
+            purna: '2047',
+            berkas: { ijazah: 'Terlampir', serdik: 'Terlampir', skAwal: 'Terlampir', skAkhir: 'Terlampir' }
+          },
+          {
+            id: 'gr-4',
+            nama: 'Siti Nur Bautty, S.Pd',
+            nip: '199407092019022004',
+            mapel: 'Agama Islam',
+            pendidikan: 'S1',
+            sertifikasi: 'Sudah',
+            purna: '2054',
+            berkas: { ijazah: 'Terlampir', serdik: 'Terlampir', skAwal: 'Terlampir', skAkhir: 'Terlampir' }
+          },
+          {
+            id: 'gr-5',
+            nama: 'Septi Fajar Suryarini, S.Pd',
+            nip: '198809202023212009',
+            mapel: 'Bahasa Indonesia',
+            pendidikan: 'S1',
+            sertifikasi: 'Sudah',
+            purna: '2048',
+            berkas: { ijazah: 'Terlampir', serdik: 'Terlampir', skAwal: 'Terlampir', skAkhir: 'Terlampir' }
+          },
+          {
+            id: 'gr-6',
+            nama: 'Yeri Ekomunajat, S.Pd., M.Pd',
+            nip: '197704092009031002',
+            mapel: 'Bahasa Inggris',
+            pendidikan: 'S2',
+            sertifikasi: 'Sudah',
+            purna: '2037',
+            berkas: { ijazah: 'Terlampir', serdik: 'Terlampir', skAwal: 'Terlampir', skAkhir: 'Terlampir' }
+          }
+        ],
+        tendik: [
+          {
+            id: 'td-1',
+            nama: 'Fatimah Az-Zahro',
+            nip: '200101092025212027',
+            jabatan: 'Tenaga Administrasi Sekolah',
+            pendidikan: 'SMA / SMK',
+            purna: '2059',
+            berkas: { ijazah: 'Terlampir', serdik: '', skAwal: 'Terlampir', skAkhir: 'Terlampir' }
+          }
+        ]
+      },
+      serbaSerbi: {
+        pengantar: 'Kumpulan cerita, prestasi, agenda, dan kabar kegiatan serba-serbi warga SMP Negeri 1 Karangmojo.',
+        catatan: [
+          {
+            id: 'ss-init-1',
+            judul: 'Kegiatan Literasi & Pembiasaan Pagi',
+            tag: 'Kegiatan Sekolah',
+            waktu: 'Tahun Ajaran Berjalan',
+            isi: 'Pembiasaan karakter positif dan budaya literasi murid SMP Negeri 1 Karangmojo sebelum kegiatan pembelajaran dimulai.'
+          },
+          {
+            id: 'ss-init-2',
+            judul: 'Pengembangan Kompetensi Guru & Tenaga Kependidikan',
+            tag: 'Peningkatan Mutu',
+            waktu: 'Berkelanjutan',
+            isi: 'Partisipasi aktif pendidik SMP Negeri 1 Karangmojo dalam pelatihan literasi digital, pembelajaran kolaboratif, dan kemitraan pendidikan.'
+          }
+        ]
+      },
+      tentangKami: {
+        umum: 'Website SMP Negeri 1 Karangmojo disusun untuk menghadirkan informasi Profil Sekolah, FORSAKA, Standar Nasional Pendidikan (SNP), Serba Serbi, dan Tentang Kami dalam satu portal terpadu yang mudah diakses oleh warga sekolah dan masyarakat.',
+        kontak: 'Alamat: Kecamatan Karangmojo, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta\nJam Layanan Tata Usaha: Senin – Jumat, Pukul 07.00 – 15.00 WIB\nPengelola: Tim IT & Administrasi SMP Negeri 1 Karangmojo'
+      }
+    };
+
+    let state = loadPortalState();
+    let adminLoggedIn = false;
+    let contentEditMode = false;
+    let currentForsakaKey = 'osis';
+    let editingTextPath = null;
+
+    function loadPortalState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return structuredCloneSafe(INITIAL_DATA);
+        const parsed = JSON.parse(raw);
+        return deepMerge(structuredCloneSafe(INITIAL_DATA), parsed);
+      } catch (e) {
+        return structuredCloneSafe(INITIAL_DATA);
+      }
+    }
+
+    function structuredCloneSafe(obj) {
+      return JSON.parse(JSON.stringify(obj));
+    }
+
+    function deepMerge(target, source) {
+      if (!source || typeof source !== 'object') return target;
+      for (const key of Object.keys(source)) {
+        if (Array.isArray(source[key])) {
+          target[key] = source[key];
+        } else if (source[key] && typeof source[key] === 'object') {
+          if (!target[key] || typeof target[key] !== 'object') target[key] = {};
+          deepMerge(target[key], source[key]);
+        } else if (source[key] !== undefined) {
+          target[key] = source[key];
+        }
+      }
+      return target;
+    }
+
+    function persistPortalState(notify = false) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        renderAllViews();
+        if (notify) showToast('Perubahan berhasil disimpan.');
+      } catch (e) {
+        showToast('Gagal menyimpan ke penyimpanan lokal browser.', 'error');
+      }
+    }
+
+    // ==================== NAVIGATION & TABS ====================
+    function navigateTo(viewName) {
+      document.querySelectorAll('.view-section').forEach(sec => sec.classList.add('hidden'));
+      const target = document.getElementById(`view-${viewName}`);
+      if (target) target.classList.remove('hidden');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.dataset.nav === viewName) {
+          btn.classList.add('nav-active');
+        } else {
+          btn.classList.remove('nav-active');
+        }
+      });
+
+      if (viewName === 'snp') {
+        renderProsentaseSection();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function selectForsakaSub(subKey) {
+      currentForsakaKey = subKey;
+      document.querySelectorAll('.forsaka-tab').forEach(btn => {
+        if (btn.dataset.forsaka === subKey) {
+          btn.classList.add('subtab-active');
+          btn.classList.remove('bg-slate-50', 'text-slate-700');
+        } else {
+          btn.classList.remove('subtab-active');
+          btn.classList.add('bg-slate-50', 'text-slate-700');
+        }
+      });
+      renderForsakaSub();
+    }
+
+    function setSnpMainTab(tabKey) {
+      document.querySelectorAll('.snp-main-btn').forEach(btn => {
+        if (btn.dataset.snp === tabKey) {
+          btn.classList.add('subtab-active');
+          btn.classList.remove('bg-slate-50', 'text-slate-800');
+        } else {
+          btn.classList.remove('subtab-active');
+          btn.classList.add('bg-slate-50', 'text-slate-800');
+        }
+      });
+      document.querySelectorAll('.snp-pane').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`snp-pane-${tabKey}`)?.classList.remove('hidden');
+      if (tabKey === 'ptk') {
+        renderProsentaseSection();
+      }
+    }
+
+    function setIsiTab(tabKey) {
+      document.querySelectorAll('.isi-sub-btn').forEach(btn => {
+        if (btn.dataset.isi === tabKey) {
+          btn.classList.add('subtab-active');
+          btn.classList.remove('bg-white', 'text-slate-700');
+        } else {
+          btn.classList.remove('subtab-active');
+          btn.classList.add('bg-white', 'text-slate-700');
+        }
+      });
+      document.querySelectorAll('.isi-pane').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`isi-pane-${tabKey}`)?.classList.remove('hidden');
+    }
+
+    function setProsesTab(tabKey) {
+      document.querySelectorAll('.proses-sub-btn').forEach(btn => {
+        if (btn.dataset.proses === tabKey) {
+          btn.classList.add('subtab-active');
+          btn.classList.remove('bg-white', 'text-slate-700');
+        } else {
+          btn.classList.remove('subtab-active');
+          btn.classList.add('bg-white', 'text-slate-700');
+        }
+      });
+      document.querySelectorAll('.proses-pane').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`proses-pane-${tabKey}`)?.classList.remove('hidden');
+    }
+
+    function setPtkTab(tabKey) {
+      document.querySelectorAll('.ptk-sub-btn').forEach(btn => {
+        if (btn.dataset.ptk === tabKey) {
+          btn.classList.add('subtab-active');
+          btn.classList.remove('bg-white', 'text-slate-700');
+        } else {
+          btn.classList.remove('subtab-active');
+          btn.classList.add('bg-white', 'text-slate-700');
+        }
+      });
+      document.querySelectorAll('.ptk-pane').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`ptk-pane-${tabKey}`)?.classList.remove('hidden');
+      if (tabKey === 'prosentase') {
+        requestAnimationFrame(() => renderProsentaseSection());
+      }
+    }
+
+    // ==================== ADMIN AUTH & EDIT MODE ====================
+    function getStoredPin() {
+      return localStorage.getItem(PIN_STORAGE_KEY) || DEFAULT_ADMIN_PIN;
+    }
+
+    function openAdminLoginModal() {
+      const inp = document.getElementById('adminPinInput');
+      if (inp) inp.value = '';
+      document.getElementById('modalAdminLogin')?.classList.remove('hidden');
+      setTimeout(() => inp?.focus(), 50);
+    }
+
+    function handleAdminLoginSubmit(e) {
+      e.preventDefault();
+      const entered = (document.getElementById('adminPinInput')?.value || '').trim();
+      if (entered === getStoredPin()) {
+        adminLoggedIn = true;
+        closeModalById('modalAdminLogin');
+        syncAdminVisibility();
+        showToast('Berhasil masuk sebagai Admin.');
+      } else {
+        showToast('PIN Admin tidak sesuai.', 'error');
+      }
+    }
+
+    function logoutAdmin() {
+      adminLoggedIn = false;
+      contentEditMode = false;
+      syncAdminVisibility();
+      showToast('Anda telah keluar dari sesi Admin.');
+    }
+
+    function openAdminPanelModal() {
+      if (!adminLoggedIn) return;
+      document.getElementById('modalAdminPanel')?.classList.remove('hidden');
+    }
+
+    function toggleContentEditMode(forceState) {
+      if (!adminLoggedIn) return;
+      contentEditMode = typeof forceState === 'boolean' ? forceState : !contentEditMode;
+      syncAdminVisibility();
+      closeModalById('modalAdminPanel');
+      showToast(contentEditMode ? 'Mode Edit Teks diaktifkan.' : 'Mode Edit Teks dinonaktifkan.');
+    }
+
+    function updateAdminPin() {
+      if (!adminLoggedIn) return;
+      const newPin = (document.getElementById('newAdminPinInput')?.value || '').trim();
+      if (newPin.length < 4) {
+        showToast('PIN baru minimal 4 karakter.', 'error');
+        return;
+      }
+      localStorage.setItem(PIN_STORAGE_KEY, newPin);
+      document.getElementById('newAdminPinInput').value = '';
+      showToast('PIN Admin berhasil diperbarui.');
+    }
+
+    function syncAdminVisibility() {
+      const btnLogin = document.getElementById('btnAdminLogin');
+      const controlsBar = document.getElementById('adminControlsBar');
+      const editBanner = document.getElementById('editModeBanner');
+      const toggleBtn = document.getElementById('btnToggleEditModeModal');
+
+      if (adminLoggedIn) {
+        btnLogin?.classList.add('hidden');
+        controlsBar?.classList.remove('hidden');
+        controlsBar?.classList.add('flex');
+      } else {
+        btnLogin?.classList.remove('hidden');
+        controlsBar?.classList.add('hidden');
+        controlsBar?.classList.remove('flex');
+      }
+
+      // Admin-only upload forms on SNP & Serba Serbi
+      document.querySelectorAll('.admin-upload-card').forEach(el => {
+        el.classList.toggle('hidden', !adminLoggedIn);
+      });
+
+      // Admin delete columns in tables
+      document.querySelectorAll('.admin-col-header, .admin-col-cell').forEach(el => {
+        el.classList.toggle('hidden', !adminLoggedIn);
+      });
+
+      // Text edit buttons (only when logged in AND contentEditMode is active)
+      const showTextEdits = adminLoggedIn && contentEditMode;
+      document.querySelectorAll('.admin-edit-slot').forEach(el => {
+        el.classList.toggle('hidden', !showTextEdits);
+      });
+      editBanner?.classList.toggle('hidden', !showTextEdits);
+      if (toggleBtn) {
+        toggleBtn.textContent = contentEditMode ? 'Nonaktifkan' : 'Aktifkan';
+      }
+    }
+
+    function closeModalById(id) {
+      document.getElementById(id)?.classList.add('hidden');
+    }
+
+    // ==================== GENERIC TEXT EDITOR (ADMIN) ====================
+    function openTextEditor(path, title) {
+      if (!adminLoggedIn || !contentEditMode) {
+        showToast('Aktifkan Mode Edit Teks dari Panel Admin terlebih dahulu.', 'error');
+        return;
+      }
+      const parts = path.split('.');
+      let current = state;
+      for (const part of parts) {
+        if (current && typeof current === 'object') current = current[part];
+      }
+      editingTextPath = path;
+      document.getElementById('textEditorTitle').textContent = title || 'Edit Konten';
+      document.getElementById('textEditorArea').value = typeof current === 'string' ? current : '';
+      document.getElementById('modalTextEditor')?.classList.remove('hidden');
+    }
+
+    function editCurrentForsakaField(field) {
+      const sub = state.forsaka?.subs?.[currentForsakaKey];
+      const label = sub ? sub.label : currentForsakaKey.toUpperCase();
+      openTextEditor(`forsaka.subs.${currentForsakaKey}.${field}`, `Edit ${field.toUpperCase()} — ${label}`);
+    }
+
+    function saveTextEditor() {
+      if (!adminLoggedIn || !editingTextPath) return;
+      const parts = editingTextPath.split('.');
+      let current = state;
+      for (let i = 0; i < parts.length - 1; i++) {
+        if (!current[parts[i]] || typeof current[parts[i]] !== 'object') {
+          current[parts[i]] = {};
+        }
+        current = current[parts[i]];
+      }
+      current[parts[parts.length - 1]] = document.getElementById('textEditorArea').value;
+      editingTextPath = null;
+      closeModalById('modalTextEditor');
+      persistPortalState(true);
+    }
+
+    // ==================== FORM HANDLERS (ADMIN ONLY) ====================
+    function readFileAsDataUrl(file) {
+      return new Promise((resolve) => {
+        if (!file) return resolve('');
+        if (file.size > 1.5 * 1024 * 1024) {
+          showToast(`Ukuran file "${file.name}" melebihi 1.5 MB; disarankan memakai tautan Google Drive agar penyimpanan browser tetap ringan.`, 'error');
+          return resolve(`Berkas: ${file.name}`);
+        }
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => resolve(`Berkas: ${file.name}`);
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function resolveDocValue(fileInputId, linkInputId) {
+      const linkVal = (document.getElementById(linkInputId)?.value || '').trim();
+      if (linkVal) return linkVal;
+      const fileInp = document.getElementById(fileInputId);
+      if (fileInp && fileInp.files && fileInp.files[0]) {
+        return await readFileAsDataUrl(fileInp.files[0]);
+      }
+      return '';
+    }
+
+    async function submitPerangkat(e) {
+      e.preventDefault();
+      if (!adminLoggedIn) return;
+      const dok = await resolveDocValue('inpPerangkatFile', 'inpPerangkatLink');
+      state.snp.perangkat.push({
+        id: 'prk-' + Date.now(),
+        guru: document.getElementById('inpPerangkatGuru').value.trim(),
+        mapel: document.getElementById('inpPerangkatMapel').value.trim(),
+        kelas: document.getElementById('inpPerangkatKelas').value.trim(),
+        jenis: document.getElementById('inpPerangkatJenis').value.trim(),
+        dokumen: dok
+      });
+      e.target.reset();
+      persistPortalState(true);
+    }
+
+    function readPdfFileAsDataUrl(file) {
+      return new Promise((resolve) => {
+        if (!file) return resolve('');
+        if (file.size > 3.5 * 1024 * 1024) {
+          showToast(`Ukuran PDF "${file.name}" melebihi 3.5 MB. Gunakan tautan Google Drive agar dapat ditampilkan penuh di semua perangkat.`, 'error');
+          return resolve('');
+        }
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => resolve('');
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function submitKspPdf(e) {
+      e.preventDefault();
+      if (!adminLoggedIn) return;
+      const deskripsiVal = (document.getElementById('inpKspDeskripsi')?.value || '').trim();
+      const fileInp = document.getElementById('inpKspPdfFile');
+      const linkVal = (document.getElementById('inpKspPdfLink')?.value || '').trim();
+      let pdfSource = state.snp?.kspPdf || '';
+      let pdfName = state.snp?.kspPdfName || 'Dokumen Kurikulum Satuan Pendidikan (KSP).pdf';
+
+      if (fileInp && fileInp.files && fileInp.files[0]) {
+        const file = fileInp.files[0];
+        pdfName = file.name;
+        pdfSource = await readPdfFileAsDataUrl(file);
+        if (!pdfSource) return;
+      } else if (linkVal) {
+        pdfSource = linkVal;
+        pdfName = 'Dokumen Kurikulum Satuan Pendidikan (KSP) — Tautan';
+      } else if (!deskripsiVal && !pdfSource) {
+        showToast('Isi deskripsi KSP, pilih file PDF, atau masukkan tautan Google Drive terlebih dahulu.', 'error');
+        return;
+      }
+
+      if (deskripsiVal) {
+        state.snp.ksp = deskripsiVal;
+      }
+      state.snp.kspPdf = pdfSource;
+      state.snp.kspPdfName = pdfName;
+      if (fileInp) fileInp.value = '';
+      const linkEl = document.getElementById('inpKspPdfLink');
+      if (linkEl) linkEl.value = '';
+      persistPortalState(true);
+    }
+
+    function removeKspPdf() {
+      if (!adminLoggedIn) return;
+      state.snp.kspPdf = '';
+      state.snp.kspPdfName = '';
+      persistPortalState(true);
+    }
+
+    function submitBukuPaket(e) {
+      e.preventDefault();
+      if (!adminLoggedIn) return;
+      state.snp.bukuPaket.push({
+        id: 'bk-' + Date.now(),
+        mapel: document.getElementById('inpBukuMapel').value.trim(),
+        kelas: document.getElementById('inpBukuKelas').value.trim(),
+        judul: document.getElementById('inpBukuJudul').value.trim(),
+        penerbit: document.getElementById('inpBukuPenerbit').value.trim(),
+        guru: document.getElementById('inpBukuGuru').value.trim()
+      });
+      e.target.reset();
+      persistPortalState(true);
+    }
+
+    function submitKepsek(e) {
+      e.preventDefault();
+      if (!adminLoggedIn) return;
+      state.snp.kepsek = {
+        nama: document.getElementById('inpKepsekNama').value.trim(),
+        nip: document.getElementById('inpKepsekNip').value.trim(),
+        pangkat: document.getElementById('inpKepsekPangkat').value.trim(),
+        pendidikan: document.getElementById('inpKepsekPendidikan').value,
+        periode: document.getElementById('inpKepsekPeriode').value.trim()
+      };
+      e.target.reset();
+      persistPortalState(true);
+    }
+
+    function submitPendidik(e) {
+      e.preventDefault();
+      if (!adminLoggedIn) return;
+      const ijazah = (document.getElementById('linkGuruIjazah')?.value || '').trim();
+      const serdik = (document.getElementById('linkGuruSerdik')?.value || '').trim();
+      const skAwal = (document.getElementById('linkGuruSkAwal')?.value || '').trim();
+      const skAkhir = (document.getElementById('linkGuruSkAkhir')?.value || '').trim();
+
+      state.snp.pendidik.push({
+        id: 'gr-' + Date.now(),
+        nama: document.getElementById('inpGuruNama').value.trim(),
+        nip: document.getElementById('inpGuruNip').value.trim(),
+        mapel: document.getElementById('inpGuruMapel').value.trim(),
+        pendidikan: document.getElementById('inpGuruPendidikan').value,
+        sertifikasi: document.getElementById('inpGuruSertifikasi').value,
+        purna: document.getElementById('inpGuruPurna').value.trim() || '-',
+        berkas: { ijazah, serdik, skAwal, skAkhir }
+      });
+      e.target.reset();
+      persistPortalState(true);
+    }
+
+    function submitTendik(e) {
+      e.preventDefault();
+      if (!adminLoggedIn) return;
+      const ijazah = (document.getElementById('linkTendikIjazah')?.value || '').trim();
+      const serdik = (document.getElementById('linkTendikSerdik')?.value || '').trim();
+      const skAwal = (document.getElementById('linkTendikSkAwal')?.value || '').trim();
+      const skAkhir = (document.getElementById('linkTendikSkAkhir')?.value || '').trim();
+
+      state.snp.tendik.push({
+        id: 'td-' + Date.now(),
+        nama: document.getElementById('inpTendikNama').value.trim(),
+        nip: document.getElementById('inpTendikNip').value.trim() || '-',
+        jabatan: document.getElementById('inpTendikJabatan').value.trim(),
+        pendidikan: document.getElementById('inpTendikPendidikan').value,
+        purna: document.getElementById('inpTendikPurna').value.trim() || '-',
+        berkas: { ijazah, serdik, skAwal, skAkhir }
+      });
+      e.target.reset();
+      persistPortalState(true);
+    }
+
+    function submitSerbaSerbi(e) {
+      e.preventDefault();
+      if (!adminLoggedIn) return;
+      state.serbaSerbi.catatan.unshift({
+        id: 'ss-' + Date.now(),
+        judul: document.getElementById('inpSsJudul').value.trim(),
+        tag: document.getElementById('inpSsTag').value.trim(),
+        waktu: document.getElementById('inpSsWaktu').value.trim(),
+        isi: document.getElementById('inpSsIsi').value.trim()
+      });
+      e.target.reset();
+      persistPortalState(true);
+    }
+
+    // ==================== DELETE HANDLERS (ADMIN ONLY) ====================
+    function deletePerangkat(id) {
+      if (!adminLoggedIn) return;
+      state.snp.perangkat = state.snp.perangkat.filter(item => item.id !== id);
+      persistPortalState(true);
+    }
+
+    function deleteBukuPaket(id) {
+      if (!adminLoggedIn) return;
+      state.snp.bukuPaket = state.snp.bukuPaket.filter(item => item.id !== id);
+      persistPortalState(true);
+    }
+
+    function deletePendidik(id) {
+      if (!adminLoggedIn) return;
+      state.snp.pendidik = state.snp.pendidik.filter(item => item.id !== id);
+      persistPortalState(true);
+    }
+
+    function deleteTendik(id) {
+      if (!adminLoggedIn) return;
+      state.snp.tendik = state.snp.tendik.filter(item => item.id !== id);
+      persistPortalState(true);
+    }
+
+    function deleteSerbaSerbi(id) {
+      if (!adminLoggedIn) return;
+      state.serbaSerbi.catatan = state.serbaSerbi.catatan.filter(item => item.id !== id);
+      persistPortalState(true);
+    }
+
+    function submitExtraSnpDoc(e, sectionKey) {
+      e.preventDefault();
+      if (!adminLoggedIn) return;
+      const judulEl = document.getElementById(`inpExtraJudul-${sectionKey}`);
+      const ketEl = document.getElementById(`inpExtraKet-${sectionKey}`);
+      const linkEl = document.getElementById(`inpExtraLink-${sectionKey}`);
+      if (!state.snp.extraDocs) state.snp.extraDocs = {};
+      if (!Array.isArray(state.snp.extraDocs[sectionKey])) state.snp.extraDocs[sectionKey] = [];
+      state.snp.extraDocs[sectionKey].push({
+        id: 'ext-' + Date.now(),
+        judul: (judulEl?.value || '').trim(),
+        keterangan: (ketEl?.value || '').trim(),
+        link: (linkEl?.value || '').trim()
+      });
+      e.target.reset();
+      persistPortalState(true);
+    }
+
+    function deleteExtraSnpDoc(sectionKey, id) {
+      if (!adminLoggedIn) return;
+      if (!state.snp.extraDocs || !Array.isArray(state.snp.extraDocs[sectionKey])) return;
+      state.snp.extraDocs[sectionKey] = state.snp.extraDocs[sectionKey].filter(item => item.id !== id);
+      persistPortalState(true);
+    }
+
+    function renderExtraSnpSection(sectionKey, sectionTitle) {
+      const host = document.getElementById(`extra-docs-${sectionKey}`);
+      if (!host) return;
+      const docs = (state.snp?.extraDocs && Array.isArray(state.snp.extraDocs[sectionKey]))
+        ? state.snp.extraDocs[sectionKey]
+        : [];
+
+      host.innerHTML = `
+        <div class="space-y-4">
+          <div class="admin-upload-card ${adminLoggedIn ? '' : 'hidden'} bg-amber-50/70 rounded-2xl p-6 border border-amber-200 space-y-3">
+            <div>
+              <span class="px-2 py-0.5 rounded bg-amber-500 text-white text-[10px] font-bold uppercase">Khusus Admin</span>
+              <h4 class="text-base font-extrabold text-slate-900 mt-1">Tambah Dokumen / Tautan Google Drive — ${escapeHtml(sectionTitle)}</h4>
+            </div>
+            <form onsubmit="submitExtraSnpDoc(event, '${sectionKey}')" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <input type="text" id="inpExtraJudul-${sectionKey}" required placeholder="Nama Dokumen / Program" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+              <input type="text" id="inpExtraKet-${sectionKey}" placeholder="Keterangan / Tahun" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+              <input type="url" id="inpExtraLink-${sectionKey}" placeholder="Link Google Drive Dokumen (Opsional)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm" />
+              <div class="sm:col-span-3 flex justify-end">
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">Simpan Dokumen</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-base font-extrabold text-slate-900">Dokumen Pendukung ${escapeHtml(sectionTitle)}</h4>
+              <span class="px-3 py-1 rounded-full bg-brand-50 text-brand-800 text-xs font-bold">${docs.length} Dokumen</span>
+            </div>
+            <div class="overflow-x-auto rounded-xl border border-slate-200">
+              <table class="min-w-full divide-y divide-slate-200 text-xs sm:text-sm">
+                <thead class="bg-slate-100 text-slate-700 font-bold">
+                  <tr>
+                    <th class="px-4 py-3 text-left">No</th>
+                    <th class="px-4 py-3 text-left">Nama Dokumen</th>
+                    <th class="px-4 py-3 text-left">Keterangan</th>
+                    <th class="px-4 py-3 text-left">Tautan Google Drive</th>
+                    <th class="admin-col-header ${adminLoggedIn ? '' : 'hidden'} px-4 py-3 text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 bg-white">
+                  ${docs.length ? docs.map((d, i) => `
+                    <tr class="hover:bg-slate-50">
+                      <td class="px-4 py-3 text-slate-500">${i + 1}</td>
+                      <td class="px-4 py-3 font-semibold text-slate-900">${escapeHtml(d.judul)}</td>
+                      <td class="px-4 py-3 text-slate-600">${escapeHtml(d.keterangan || '-')}</td>
+                      <td class="px-4 py-3">${renderDocBadge('Dokumen', d.link, d.judul)}</td>
+                      <td class="admin-col-cell ${adminLoggedIn ? '' : 'hidden'} px-4 py-3 text-center">
+                        <button type="button" onclick="deleteExtraSnpDoc('${sectionKey}', '${escapeHtml(d.id)}')" class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold">Hapus</button>
+                      </td>
+                    </tr>
+                  `).join('') : `<tr><td colspan="5" class="px-4 py-5 text-center text-slate-400">Belum ada dokumen pendukung yang ditambahkan.</td></tr>`}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==================== RENDERING HELPERS ====================
+    function escapeHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function setTextSafe(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value ?? '';
+    }
+
+    function normalizeGoogleDriveEmbedUrl(url) {
+      if (!url) return '';
+      const fileMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (fileMatch && fileMatch[1]) {
+        return `https://drive.google.com/file/d/${fileMatch[1]}/preview`;
+      }
+      const openMatch = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      if (openMatch && openMatch[1]) {
+        return `https://drive.google.com/file/d/${openMatch[1]}/preview`;
+      }
+      return url;
+    }
+
+    function renderDocBadge(label, val, ownerName = '') {
+      if (!val) {
+        return `<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-400 text-[11px]">${escapeHtml(label)}: Belum</span>`;
+      }
+      if (/^https?:\/\//i.test(val)) {
+        return `<a href="${escapeHtml(val)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-brand-50 text-brand-800 hover:bg-brand-100 text-[11px] font-bold transition">Lihat ${escapeHtml(label)} &nearr;</a>`;
+      }
+      if (val.startsWith('data:')) {
+        const safeTitle = escapeHtml(`${label} — ${ownerName || 'PTK'}`);
+        const safeData = escapeHtml(val);
+        return `<button type="button" data-doc-title="${safeTitle}" data-doc-src="${safeData}" onclick="openDocPreview(this)" class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 hover:bg-emerald-100 text-[11px] font-bold transition">Lihat ${escapeHtml(label)}</button>`;
+      }
+      return `<span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[11px] font-semibold">${escapeHtml(label)}: ${escapeHtml(val)}</span>`;
+    }
+
+    function openDocPreview(btn) {
+      const title = btn.getAttribute('data-doc-title') || 'Pratinjau Berkas';
+      const src = btn.getAttribute('data-doc-src') || '';
+      const titleEl = document.getElementById('docViewerTitle');
+      const bodyEl = document.getElementById('docViewerBody');
+      if (!bodyEl) return;
+      if (titleEl) titleEl.textContent = title;
+
+      if (src.startsWith('data:image/')) {
+        bodyEl.innerHTML = `<img src="${escapeHtml(src)}" alt="${escapeHtml(title)}" class="max-h-[62vh] w-auto rounded-xl shadow-sm object-contain" />`;
+      } else if (src.startsWith('data:application/pdf')) {
+        bodyEl.innerHTML = `<iframe src="${escapeHtml(src)}" title="${escapeHtml(title)}" class="w-full h-[62vh] rounded-xl border-0"></iframe>`;
+      } else {
+        bodyEl.innerHTML = `<a href="${escapeHtml(src)}" download="berkas-kepegawaian" class="px-4 py-2 rounded-xl bg-brand-800 text-white text-xs font-bold">Unduh Berkas</a>`;
+      }
+      document.getElementById('modalDocViewer')?.classList.remove('hidden');
+    }
+
+    function renderDetailDocCard(title, val, ownerName) {
+      if (!val) {
+        return `
+          <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50/70 flex items-center justify-between gap-3">
+            <div>
+              <span class="block text-xs font-bold text-slate-700">${escapeHtml(title)}</span>
+              <span class="inline-block mt-1 px-2 py-0.5 rounded bg-slate-200/70 text-slate-500 text-[11px] font-medium">Belum ada tautan Drive</span>
+            </div>
+          </div>
+        `;
+      }
+
+      if (/^https?:\/\//i.test(val)) {
+        return `
+          <div class="p-4 rounded-2xl border border-brand-200 bg-brand-50/30 flex flex-col justify-between gap-2.5">
+            <div>
+              <span class="block text-xs font-extrabold text-slate-900">${escapeHtml(title)}</span>
+              <span class="inline-block mt-1 px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[11px] font-bold">Tersedia di Google Drive</span>
+            </div>
+            <div>
+              <a href="${escapeHtml(val)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">
+                <span>Buka di Google Drive</span>
+                <span>&nearr;</span>
+              </a>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="p-4 rounded-2xl border border-emerald-200 bg-emerald-50/30 flex items-center justify-between gap-3">
+          <div>
+            <span class="block text-xs font-extrabold text-slate-900">${escapeHtml(title)}</span>
+            <span class="inline-block mt-1 px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[11px] font-bold">Status: ${escapeHtml(val)}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function showInlinePtkPreview(btn) {
+      const title = btn.getAttribute('data-preview-title') || 'Pratinjau Berkas';
+      const type = btn.getAttribute('data-preview-type') || 'image';
+      const src = btn.getAttribute('data-preview-src') || '';
+      const wrapper = document.getElementById('ptkDetailInlinePreview');
+      const labelEl = document.getElementById('ptkDetailPreviewLabel');
+      const contentEl = document.getElementById('ptkDetailPreviewContent');
+      if (!wrapper || !contentEl) return;
+
+      if (labelEl) labelEl.textContent = title;
+      if (type === 'image') {
+        contentEl.innerHTML = `<img src="${escapeHtml(src)}" alt="${escapeHtml(title)}" class="max-h-[55vh] w-auto rounded-xl shadow-sm object-contain" />`;
+      } else if (type === 'iframe') {
+        contentEl.innerHTML = `<iframe src="${escapeHtml(src)}" title="${escapeHtml(title)}" class="w-full h-[55vh] rounded-xl border-0"></iframe>`;
+      } else {
+        contentEl.innerHTML = `<a href="${escapeHtml(src)}" download="berkas-kepegawaian" class="px-4 py-2 rounded-xl bg-brand-800 text-white text-xs font-bold">Unduh Berkas</a>`;
+      }
+      wrapper.classList.remove('hidden');
+      wrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function openPtkDetailModal(category, id) {
+      const list = category === 'pendidik' ? (state.snp?.pendidik || []) : (state.snp?.tendik || []);
+      const person = list.find(item => item.id === id);
+      if (!person) return;
+
+      const inlinePreview = document.getElementById('ptkDetailInlinePreview');
+      if (inlinePreview) inlinePreview.classList.add('hidden');
+
+      setTextSafe('ptkDetailRoleBadge', category === 'pendidik' ? 'Data Lengkap Pendidik (Guru)' : 'Data Lengkap Tenaga Kependidikan');
+      setTextSafe('ptkDetailName', person.nama);
+      setTextSafe(
+        'ptkDetailSub',
+        category === 'pendidik'
+          ? `NIP: ${person.nip || '-'} • Guru Mata Pelajaran ${person.mapel || '-'}`
+          : `NIP: ${person.nip || '-'} • ${person.jabatan || 'Tenaga Kependidikan'}`
+      );
+
+      const bioGrid = document.getElementById('ptkDetailBioGrid');
+      if (bioGrid) {
+        if (category === 'pendidik') {
+          bioGrid.innerHTML = `
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Nama Lengkap</span>
+              <p class="text-xs sm:text-sm font-extrabold text-slate-900 mt-1">${escapeHtml(person.nama)}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">NIP / NUPTK</span>
+              <p class="text-xs sm:text-sm font-bold text-slate-800 font-mono mt-1">${escapeHtml(person.nip || '-')}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Mengajar Mata Pelajaran</span>
+              <p class="text-xs sm:text-sm font-bold text-slate-800 mt-1">${escapeHtml(person.mapel || '-')}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Pendidikan Terakhir</span>
+              <p class="text-xs sm:text-sm font-extrabold text-brand-800 mt-1">${escapeHtml(person.pendidikan || '-')}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Status Sertifikasi</span>
+              <p class="text-xs sm:text-sm font-extrabold ${person.sertifikasi === 'Sudah' ? 'text-emerald-700' : 'text-amber-700'} mt-1">${escapeHtml(person.sertifikasi === 'Sudah' ? 'Sudah Sertifikasi Pendidik' : 'Belum Sertifikasi Pendidik')}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Perkiraan Purna Tugas</span>
+              <p class="text-xs sm:text-sm font-bold text-slate-800 mt-1">Tahun ${escapeHtml(person.purna || '-')}</p>
+            </div>
+          `;
+        } else {
+          bioGrid.innerHTML = `
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Nama Lengkap</span>
+              <p class="text-xs sm:text-sm font-extrabold text-slate-900 mt-1">${escapeHtml(person.nama)}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">NIP / NI PPPK</span>
+              <p class="text-xs sm:text-sm font-bold text-slate-800 font-mono mt-1">${escapeHtml(person.nip || '-')}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Jabatan / Unit Tugas</span>
+              <p class="text-xs sm:text-sm font-bold text-slate-800 mt-1">${escapeHtml(person.jabatan || '-')}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Pendidikan Terakhir</span>
+              <p class="text-xs sm:text-sm font-extrabold text-brand-800 mt-1">${escapeHtml(person.pendidikan || '-')}</p>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200 sm:col-span-2">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Perkiraan Purna Tugas</span>
+              <p class="text-xs sm:text-sm font-bold text-slate-800 mt-1">Tahun ${escapeHtml(person.purna || '-')}</p>
+            </div>
+          `;
+        }
+      }
+
+      const b = person.berkas || {};
+      const docsGrid = document.getElementById('ptkDetailDocsGrid');
+      if (docsGrid) {
+        const secondDocTitle = category === 'pendidik' ? '2. Sertifikat Pendidik' : '2. Sertifikat Pendidik / Kompetensi';
+        docsGrid.innerHTML = `
+          ${renderDetailDocCard('1. Ijazah Terakhir', b.ijazah, person.nama)}
+          ${renderDetailDocCard(secondDocTitle, b.serdik, person.nama)}
+          ${renderDetailDocCard('3. SK PNS / PPPK', b.skAwal, person.nama)}
+          ${renderDetailDocCard('4. SK Terakhir PNS / PPPK', b.skAkhir, person.nama)}
+        `;
+      }
+
+      document.getElementById('modalPtkDetail')?.classList.remove('hidden');
+    }
+
+    function renderForsakaSub() {
+      const sub = state.forsaka?.subs?.[currentForsakaKey];
+      if (!sub) return;
+      setTextSafe('forsakaSubHeading', sub.label);
+      setTextSafe('forsakaSubProfil', sub.profil);
+      setTextSafe('forsakaSubProgram', sub.program);
+      setTextSafe('forsakaSubPengurus', sub.pengurus);
+    }
+
+    function renderBarGroup(items, total) {
+      return items.map(it => {
+        const pct = total > 0 ? Math.round((it.count / total) * 1000) / 10 : 0;
+        return `
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-bold">
+              <span class="text-slate-700">${escapeHtml(it.label)}</span>
+              <span class="text-slate-900">${it.count} (${pct}%)</span>
+            </div>
+            <div class="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden">
+              <div class="h-full rounded-full ${it.color}" style="width: ${pct}%"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderProsentaseSection() {
+      const pendidik = state.snp?.pendidik || [];
+      const tendik = state.snp?.tendik || [];
+      const totalGuru = pendidik.length;
+      const totalTendik = tendik.length;
+
+      // 1. Pendidikan Pendidik (S1 / S2)
+      const countS1 = pendidik.filter(g => g.pendidikan === 'S1').length;
+      const countS2 = pendidik.filter(g => g.pendidikan === 'S2' || g.pendidikan === 'S3').length;
+      const eduItems = [
+        { label: 'Lulusan S1', count: countS1, color: 'bg-brand-700' },
+        { label: 'Lulusan S2 / S3', count: countS2, color: 'bg-amber-500' }
+      ];
+      const chartEdu = document.getElementById('chartPendidikEdu');
+      const tableEdu = document.getElementById('tablePendidikEdu');
+      if (chartEdu) chartEdu.innerHTML = renderBarGroup(eduItems, totalGuru);
+      if (tableEdu) tableEdu.innerHTML = `<div class="flex justify-between font-extrabold text-slate-800"><span>Total Pendidik</span><span>${totalGuru} Orang (100%)</span></div>`;
+
+      // 2. Sertifikasi Pendidik
+      const countSudah = pendidik.filter(g => g.sertifikasi === 'Sudah').length;
+      const countBelum = pendidik.filter(g => g.sertifikasi !== 'Sudah').length;
+      const sertItems = [
+        { label: 'Sudah Sertifikasi', count: countSudah, color: 'bg-emerald-600' },
+        { label: 'Belum Sertifikasi', count: countBelum, color: 'bg-rose-500' }
+      ];
+      const chartSert = document.getElementById('chartPendidikSert');
+      const tableSert = document.getElementById('tablePendidikSert');
+      if (chartSert) chartSert.innerHTML = renderBarGroup(sertItems, totalGuru);
+      if (tableSert) tableSert.innerHTML = `<div class="flex justify-between font-extrabold text-slate-800"><span>Total Pendidik</span><span>${totalGuru} Orang (100%)</span></div>`;
+
+      // 3. Pendidikan Tendik (SMA/SMK, D2, D3, D4, S1)
+      const levels = [
+        { key: 'SMA / SMK', label: 'Lulusan SMA / SMK', color: 'bg-brand-700' },
+        { key: 'D2', label: 'Lulusan D2', color: 'bg-sky-600' },
+        { key: 'D3', label: 'Lulusan D3', color: 'bg-teal-600' },
+        { key: 'D4', label: 'Lulusan D4', color: 'bg-amber-500' },
+        { key: 'S1', label: 'Lulusan S1', color: 'bg-emerald-600' }
+      ];
+      const tendikItems = levels.map(lv => ({
+        label: lv.label,
+        count: tendik.filter(t => t.pendidikan === lv.key).length,
+        color: lv.color
+      }));
+      const chartTendik = document.getElementById('chartTendikEdu');
+      const tableTendik = document.getElementById('tableTendikEdu');
+      if (chartTendik) chartTendik.innerHTML = renderBarGroup(tendikItems, totalTendik);
+      if (tableTendik) tableTendik.innerHTML = `<div class="flex justify-between font-extrabold text-slate-800"><span>Total Tenaga Kependidikan</span><span>${totalTendik} Orang (100%)</span></div>`;
+    }
+
+    function renderKspPdfViewer() {
+      const container = document.getElementById('kspPdfViewerContainer');
+      const btnRemove = document.getElementById('btnRemoveKspPdf');
+      const deskripsiInp = document.getElementById('inpKspDeskripsi');
+      if (deskripsiInp && document.activeElement !== deskripsiInp) {
+        deskripsiInp.value = state.snp?.ksp || '';
+      }
+      if (!container) return;
+
+      const pdfSrc = state.snp?.kspPdf || '';
+      const pdfName = state.snp?.kspPdfName || 'Dokumen Kurikulum Satuan Pendidikan (KSP).pdf';
+
+      if (btnRemove) {
+        btnRemove.classList.toggle('hidden', !pdfSrc);
+      }
+
+      if (!pdfSrc) {
+        container.innerHTML = `
+          <div class="rounded-2xl border border-dashed border-slate-300 bg-slate-50/70 p-6 text-center text-xs text-slate-500">
+            Dokumen PDF Kurikulum Satuan Pendidikan (KSP) belum diunggah oleh Admin.
+          </div>
+        `;
+        return;
+      }
+
+      const embedSrc = /^https?:\/\//i.test(pdfSrc) ? normalizeGoogleDriveEmbedUrl(pdfSrc) : pdfSrc;
+      container.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 text-xs font-extrabold">PDF</span>
+            <span class="text-xs sm:text-sm font-bold text-slate-800">${escapeHtml(pdfName)}</span>
+          </div>
+          <a href="${escapeHtml(pdfSrc)}" download="${escapeHtml(pdfName)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-900 transition">
+            Buka / Unduh PDF
+          </a>
+        </div>
+        <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 shadow-inner">
+          <iframe src="${escapeHtml(embedSrc)}" title="${escapeHtml(pdfName)}" class="w-full h-[540px] sm:h-[680px] border-0"></iframe>
+        </div>
+      `;
+    }
+
+    function renderAllViews() {
+      // Static / Editable narrative sections
+      setTextSafe('out-hero-subtitle', state.hero?.subtitle);
+      setTextSafe('out-profil-identitas', state.profil?.identitas);
+      setTextSafe('out-profil-visiMisi', state.profil?.visiMisi);
+      setTextSafe('out-profil-sarpras', state.profil?.sarpras);
+      setTextSafe('out-profil-budaya', state.profil?.budaya);
+      setTextSafe('out-forsaka-pengantar', state.forsaka?.pengantar);
+      setTextSafe('out-snp-ksp', state.snp?.ksp);
+      renderKspPdfViewer();
+      setTextSafe('out-snp-alokasiWaktu', state.snp?.alokasiWaktu);
+      setTextSafe('out-snp-skl', state.snp?.skl);
+      setTextSafe('out-snp-sarpras', state.snp?.sarpras);
+      setTextSafe('out-snp-pengelolaan', state.snp?.pengelolaan);
+      setTextSafe('out-snp-pembiayaan', state.snp?.pembiayaan);
+      setTextSafe('out-snp-penilaian', state.snp?.penilaian);
+
+      renderExtraSnpSection('skl', 'Standar Kelulusan / SKL');
+      renderExtraSnpSection('sarpras', 'Standar Sarana Prasarana');
+      renderExtraSnpSection('pengelolaan', 'Standar Pengelolaan');
+      renderExtraSnpSection('pembiayaan', 'Standar Pembiayaan');
+      renderExtraSnpSection('penilaian', 'Standar Penilaian');
+
+      setTextSafe('out-serbaSerbi-pengantar', state.serbaSerbi?.pengantar);
+      setTextSafe('out-tentangKami-umum', state.tentangKami?.umum);
+      setTextSafe('out-tentangKami-kontak', state.tentangKami?.kontak);
+
+      renderForsakaSub();
+
+      // Home Quick Stats
+      const pendidikList = state.snp?.pendidik || [];
+      const tendikList = state.snp?.tendik || [];
+      const sertCount = pendidikList.filter(g => g.sertifikasi === 'Sudah').length;
+      const sertPct = pendidikList.length > 0 ? Math.round((sertCount / pendidikList.length) * 100) : 0;
+      setTextSafe('homeStatGuru', `${pendidikList.length} Guru`);
+      setTextSafe('homeStatSertifikasi', `${sertPct}%`);
+      setTextSafe('homeStatTendik', `${tendikList.length} Staf`);
+
+      // Perangkat Table
+      const perangkatList = state.snp?.perangkat || [];
+      setTextSafe('badgeCountPerangkat', `${perangkatList.length} Dokumen`);
+      const tbodyPerangkat = document.getElementById('tbodyPerangkat');
+      if (tbodyPerangkat) {
+        tbodyPerangkat.innerHTML = perangkatList.length ? perangkatList.map((item, idx) => `
+          <tr class="hover:bg-slate-50">
+            <td class="px-4 py-3 text-slate-500">${idx + 1}</td>
+            <td class="px-4 py-3 font-semibold text-slate-900">${escapeHtml(item.guru)}</td>
+            <td class="px-4 py-3 text-slate-700">${escapeHtml(item.mapel)}</td>
+            <td class="px-4 py-3 text-slate-700">${escapeHtml(item.kelas)}</td>
+            <td class="px-4 py-3 text-slate-700">${escapeHtml(item.jenis)}</td>
+            <td class="px-4 py-3">${renderDocBadge('Dokumen', item.dokumen, item.guru)}</td>
+            <td class="admin-col-cell ${adminLoggedIn ? '' : 'hidden'} px-4 py-3 text-center">
+              <button type="button" onclick="deletePerangkat('${escapeHtml(item.id)}')" class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold">Hapus</button>
+            </td>
+          </tr>
+        `).join('') : `<tr><td colspan="7" class="px-4 py-6 text-center text-slate-400">Belum ada perangkat pembelajaran yang diunggah.</td></tr>`;
+      }
+
+      // Buku Paket Table
+      const bukuList = state.snp?.bukuPaket || [];
+      setTextSafe('badgeCountBuku', `${bukuList.length} Judul Buku`);
+      const tbodyBuku = document.getElementById('tbodyBuku');
+      if (tbodyBuku) {
+        tbodyBuku.innerHTML = bukuList.length ? bukuList.map((item, idx) => `
+          <tr class="hover:bg-slate-50">
+            <td class="px-4 py-3 text-slate-500">${idx + 1}</td>
+            <td class="px-4 py-3 font-semibold text-slate-900">${escapeHtml(item.mapel)}</td>
+            <td class="px-4 py-3 text-slate-700">${escapeHtml(item.kelas)}</td>
+            <td class="px-4 py-3 text-slate-800">${escapeHtml(item.judul)}</td>
+            <td class="px-4 py-3 text-slate-600">${escapeHtml(item.penerbit)}</td>
+            <td class="px-4 py-3 text-slate-700">${escapeHtml(item.guru)}</td>
+            <td class="admin-col-cell ${adminLoggedIn ? '' : 'hidden'} px-4 py-3 text-center">
+              <button type="button" onclick="deleteBukuPaket('${escapeHtml(item.id)}')" class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold">Hapus</button>
+            </td>
+          </tr>
+        `).join('') : `<tr><td colspan="7" class="px-4 py-6 text-center text-slate-400">Belum ada data buku paket yang ditambahkan.</td></tr>`;
+      }
+
+      // Kepala Sekolah Card
+      const ks = state.snp?.kepsek || {};
+      const kepsekContainer = document.getElementById('kepsekCardContainer');
+      if (kepsekContainer) {
+        kepsekContainer.innerHTML = `
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200">
+            <span class="text-[11px] font-bold text-slate-500 uppercase">Nama Kepala Sekolah</span>
+            <p class="text-sm font-extrabold text-slate-900 mt-1">${escapeHtml(ks.nama)}</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200">
+            <span class="text-[11px] font-bold text-slate-500 uppercase">NIP</span>
+            <p class="text-sm font-bold text-slate-800 mt-1">${escapeHtml(ks.nip)}</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200">
+            <span class="text-[11px] font-bold text-slate-500 uppercase">Pangkat / Golongan</span>
+            <p class="text-sm font-bold text-slate-800 mt-1">${escapeHtml(ks.pangkat)}</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200">
+            <span class="text-[11px] font-bold text-slate-500 uppercase">Pendidikan Terakhir</span>
+            <p class="text-sm font-bold text-brand-800 mt-1">${escapeHtml(ks.pendidikan)}</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 sm:col-span-2">
+            <span class="text-[11px] font-bold text-slate-500 uppercase">Periode Menjabat</span>
+            <p class="text-sm font-bold text-slate-800 mt-1">${escapeHtml(ks.periode)}</p>
+          </div>
+        `;
+      }
+
+      // Pendidik Table
+      setTextSafe('badgeCountPendidik', `${pendidikList.length} Pendidik`);
+      const tbodyPendidik = document.getElementById('tbodyPendidik');
+      if (tbodyPendidik) {
+        tbodyPendidik.innerHTML = pendidikList.length ? pendidikList.map((g, idx) => {
+          const b = g.berkas || {};
+          return `
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-3 text-slate-500">${idx + 1}</td>
+              <td class="px-3 py-3 font-bold">
+                <button type="button" onclick="openPtkDetailModal('pendidik', '${escapeHtml(g.id)}')" class="text-left text-brand-800 hover:text-brand-950 hover:underline focus:outline-none inline-flex items-center gap-1 group">
+                  <span>${escapeHtml(g.nama)}</span>
+                  <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-brand-50 text-brand-700 group-hover:bg-brand-100">Detail</span>
+                </button>
+              </td>
+              <td class="px-3 py-3 text-slate-600 font-mono">${escapeHtml(g.nip)}</td>
+              <td class="px-3 py-3 text-slate-700">${escapeHtml(g.mapel)}</td>
+              <td class="px-3 py-3 text-center"><span class="px-2 py-0.5 rounded-md bg-brand-50 text-brand-800 font-bold">${escapeHtml(g.pendidikan)}</span></td>
+              <td class="px-3 py-3 text-center">
+                <span class="px-2 py-0.5 rounded-md font-bold ${g.sertifikasi === 'Sudah' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}">
+                  ${escapeHtml(g.sertifikasi)}
+                </span>
+              </td>
+              <td class="px-3 py-3">
+                <div class="flex flex-wrap gap-1">
+                  ${renderDocBadge('Ijazah', b.ijazah, g.nama)}
+                  ${renderDocBadge('Serdik', b.serdik, g.nama)}
+                  ${renderDocBadge('SK PNS/PPPK', b.skAwal, g.nama)}
+                  ${renderDocBadge('SK Terakhir', b.skAkhir, g.nama)}
+                </div>
+              </td>
+              <td class="admin-col-cell ${adminLoggedIn ? '' : 'hidden'} px-3 py-3 text-center">
+                <button type="button" onclick="deletePendidik('${escapeHtml(g.id)}')" class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold">Hapus</button>
+              </td>
+            </tr>
+          `;
+        }).join('') : `<tr><td colspan="8" class="px-4 py-6 text-center text-slate-400">Belum ada data pendidik.</td></tr>`;
+      }
+
+      // Tendik Table
+      setTextSafe('badgeCountTendik', `${tendikList.length} Tendik`);
+      const tbodyTendik = document.getElementById('tbodyTendik');
+      if (tbodyTendik) {
+        tbodyTendik.innerHTML = tendikList.length ? tendikList.map((t, idx) => {
+          const b = t.berkas || {};
+          return `
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-3 text-slate-500">${idx + 1}</td>
+              <td class="px-3 py-3 font-bold">
+                <button type="button" onclick="openPtkDetailModal('tendik', '${escapeHtml(t.id)}')" class="text-left text-brand-800 hover:text-brand-950 hover:underline focus:outline-none inline-flex items-center gap-1 group">
+                  <span>${escapeHtml(t.nama)}</span>
+                  <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-brand-50 text-brand-700 group-hover:bg-brand-100">Detail</span>
+                </button>
+              </td>
+              <td class="px-3 py-3 text-slate-600 font-mono">${escapeHtml(t.nip)}</td>
+              <td class="px-3 py-3 text-slate-700">${escapeHtml(t.jabatan)}</td>
+              <td class="px-3 py-3 text-center"><span class="px-2 py-0.5 rounded-md bg-brand-50 text-brand-800 font-bold">${escapeHtml(t.pendidikan)}</span></td>
+              <td class="px-3 py-3">
+                <div class="flex flex-wrap gap-1">
+                  ${renderDocBadge('Ijazah', b.ijazah, t.nama)}
+                  ${renderDocBadge('Sertifikat', b.serdik, t.nama)}
+                  ${renderDocBadge('SK PNS/PPPK', b.skAwal, t.nama)}
+                  ${renderDocBadge('SK Terakhir', b.skAkhir, t.nama)}
+                </div>
+              </td>
+              <td class="admin-col-cell ${adminLoggedIn ? '' : 'hidden'} px-3 py-3 text-center">
+                <button type="button" onclick="deleteTendik('${escapeHtml(t.id)}')" class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold">Hapus</button>
+              </td>
+            </tr>
+          `;
+        }).join('') : `<tr><td colspan="7" class="px-4 py-6 text-center text-slate-400">Belum ada data tenaga kependidikan.</td></tr>`;
+      }
+
+      // Serba Serbi Cards
+      const ssList = state.serbaSerbi?.catatan || [];
+      const ssGrid = document.getElementById('serbaSerbiGrid');
+      if (ssGrid) {
+        ssGrid.innerHTML = ssList.map(item => `
+          <article class="bg-white rounded-2xl p-6 border border-slate-200 flex flex-col justify-between space-y-4">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-[11px] font-bold">${escapeHtml(item.tag)}</span>
+                <span class="text-[11px] text-slate-400 font-medium">${escapeHtml(item.waktu)}</span>
+              </div>
+              <h3 class="text-base font-extrabold text-slate-900">${escapeHtml(item.judul)}</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed whitespace-pre-line">${escapeHtml(item.isi)}</p>
+            </div>
+            <div class="admin-col-cell ${adminLoggedIn ? '' : 'hidden'} pt-2 border-t border-slate-100 flex justify-end">
+              <button type="button" onclick="deleteSerbaSerbi('${escapeHtml(item.id)}')" class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold">Hapus Artikel</button>
+            </div>
+          </article>
+        `).join('');
+      }
+
+      renderProsentaseSection();
+      syncAdminVisibility();
+    }
+
+    // ==================== BACKUP / RESTORE & TOAST ====================
+    function exportPortalJson() {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'backup-web-smpn1-karangmojo.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Cadangan JSON berhasil diunduh.');
+    }
+
+    function importPortalJson(e) {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        try {
+          const imported = JSON.parse(ev.target.result);
+          state = deepMerge(structuredCloneSafe(INITIAL_DATA), imported);
+          persistPortalState(true);
+          closeModalById('modalAdminPanel');
+        } catch (err) {
+          showToast('Format file JSON tidak valid.', 'error');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    let toastTimer = null;
+    function showToast(msg, type = 'success') {
+      const box = document.getElementById('toastBox');
+      if (!box) return;
+      box.textContent = msg;
+      box.className = `fixed bottom-5 right-5 z-50 max-w-sm px-4 py-3 rounded-2xl shadow-lg text-xs font-bold text-white transition-all ${
+        type === 'error' ? 'bg-rose-700' : 'bg-brand-900'
+      }`;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => box.classList.add('hidden'), 3200);
+    }
+
+    // ==================== INITIALIZE ON LOAD ====================
+    window.addEventListener('DOMContentLoaded', () => {
+      renderAllViews();
+    });
+  </script>
+</body>
+</html>
